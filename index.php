@@ -83,7 +83,7 @@ require_once("conexion.php");
       </div>
     </section>
 
-    <!-- Ultimos trabajos-->
+    <!-- Ultimos trabajos -->
     <section>
       <div class="container">
         <div class="row">
