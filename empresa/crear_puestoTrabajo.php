@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once("../conexion.php");
 if(empty($_SESSION['id_usuario'])) {
     header("Location: oferente/panel.php");
     exit();
@@ -68,30 +69,73 @@ if(empty($_SESSION['id_usuario'])) {
           <div class="col-md-4 col-md-offset-4 well">
           <h2 class="text-center">Crear Puesto de Trabajo</h2>
             <form method="post" action="agregar_puesto.php">
+
+               <div class="form-group">
+                <label for="idPuesto">Código del Puesto</label>
+                <input type="text" class="form-control" id="idPuesto" name="idPuesto" placeholder="Código del puesto" required="">
+              </div>
+
               <div class="form-group">
-                <label for="tituloTrabajo">Titulo del Trabajo</label>
-                <input type="text" class="form-control" id="tituloTrabajo" name="tituloTrabajo" placeholder="Titulo del Trabajo" required="">
+                <label for="nombrePuesto">Nombre del Puesto</label>
+                <input type="text" class="form-control" id="nombrePuesto" name="nombrePuesto" placeholder="Nombre del Trabajo" required="">
               </div>
               <div class="form-group">
-                <label for="descripcionTrabajo">Descripción del trabajo</label>
-                <textarea class="form-control" id="descripcionTrabajo" name="descripcionTrabajo" placeholder="Descripción del Trabajo" required=""></textarea>
+                <label for="descripcion">Descripción del trabajo</label>
+                <textarea class="form-control" id="descripcion" name="descripcion" placeholder="Descripción del Trabajo" required=""></textarea>
               </div>
               <div class="form-group">
-                <label for="salarioMinimo">Salario Minimo</label>
-                <input type="text" class="form-control" id="salarioMinimo" name="salarioMinimo" placeholder="Salario Minimo" required="">
+                <label for="fecha">Fecha de Publicacion</label>
+                <input type="date" class="form-control" id="fecha" name="fecha" placeholder="Fecha de publicación del puesto" required="">
               </div>
+
+               <div class="form-group">
+                <label for="numVacantes">Numero de Vacantes</label>
+                <input type="text" class="form-control" id="numVacantes" name="numVacantes" placeholder="Vacantes disponibles
+                " required="">
+              </div>
+
+
+
+               <div class="form-group">
+                <label for="privado">Puesto: </label>
+                <select class="form-control" name="privado">
+                  <option value="0">Público</option>
+                  <option value="1">Privado</option>
+                </select>
+              </div>
+
+
+
+              <!-- CATEGORIAS -->
               <div class="form-group">
-                <label for="password">Salario Máximo</label>
-                <input type="salarioMaximo" class="form-control" id="salarioMaximo" name="salarioMaximo" placeholder="Salario Máximo" required="">
+                <label for="categoria">Categoría</label>
+                <select class="form-control" name="categoria">
+                 <!-- Bucle para cargar todas las categorias en el combobox-->
+                  <?php
+                  $sql = "SELECT * FROM categorias";
+                        $result = $conn->query($sql); 
+                        if($result->num_rows > 0) {
+
+                          while($row = $result->fetch_assoc()) 
+                          {
+                            echo "<option value=".$row['idCategorias'].">".$row['nombre']."</option>";
+                          }
+                        }
+
+                  ?>
+                </select>
               </div>
+
               <div class="form-group">
-                <label for="experienciaRequerida">Experiencia requerida</label>
-                <input type="text" class="form-control" id="experienciaRequerida" name="experienciaRequerida" placeholder="Experiencia requerida" required="">
+                <label for="salario">Salario</label>
+                <input type="text" class="form-control" id="salario" name="salario" placeholder="Salario" required="">
               </div>
+            
               <div class="form-group">
-                <label for="requisitos">Requisitos</label>
-                <input type="text" class="form-control" id="requisitos" name="requisitos" placeholder="Requisitos" required="">
+                <label for="responsabilidades">Responsabilidades</label>
+                <textarea class="form-control" rows="3" id="responsabilidades" name="responsabilidades" placeholder="Responsabilidades" required=""></textarea>
               </div>
+
              <div class="text-center">
                 <button type="submit" class="btn btn-success">Crear Puesto</button>
              </div>

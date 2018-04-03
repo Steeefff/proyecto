@@ -6,14 +6,17 @@ require_once("../conexion.php");
 if(isset($_POST)) {
 
 	//Escape Special Characters In String First
-	$tituloTrabajo = mysqli_real_escape_string($conn, $_POST['tituloTrabajo']);
-	$descripcionTrabajo = mysqli_real_escape_string($conn, $_POST['descripcionTrabajo']);
-	$salarioMinimo = mysqli_real_escape_string($conn, $_POST['salarioMinimo']);
-	$salarioMaximo = mysqli_real_escape_string($conn, $_POST['salarioMaximo']);
-	$experienciaRequerida = mysqli_real_escape_string($conn, $_POST['experienciaRequerida']);
-	$requisitos = mysqli_real_escape_string($conn, $_POST['requisitos']);
+	$idPuesto = mysqli_real_escape_string($conn, $_POST['idPuesto']);
+	$nombrePuesto = mysqli_real_escape_string($conn, $_POST['nombrePuesto']);
+	$descripcion = mysqli_real_escape_string($conn, $_POST['descripcion']);
+	$fecha = mysqli_real_escape_string($conn, $_POST['fecha']);
+	$numVacantes = mysqli_real_escape_string($conn, $_POST['numVacantes']);
+	$privado = mysqli_real_escape_string($conn, $_POST['privado']);
+	$salario = mysqli_real_escape_string($conn, $_POST['salario']);
+	$responsabilidades = mysqli_real_escape_string($conn, $_POST['responsabilidades']);
+	$categoria = mysqli_real_escape_string($conn, $_POST['categoria']);
 
-	$sql = "INSERT INTO puesto_trabajo(id_empresa, tituloTrabajo, descripcionTrabajo, salarioMinimo, salarioMaximo, experienciaRequerida, requisitos) VALUES ('$_SESSION[id_usuario]','$tituloTrabajo', '$descripcionTrabajo', '$salarioMinimo', '$salarioMaximo', '$experienciaRequerida', '$requisitos')";
+	$sql = "INSERT INTO puestos(idEmpresa,idPuesto, nombrePuesto, descripcion,fecha,numVacantes,privado,salario,responsabilidades,idCategoria,estadoPuesto) VALUES ('$_SESSION[id_usuario]','$idPuesto','$nombrePuesto', '$descripcion', '$fecha', '$numVacantes', '$privado', '$salario','$responsabilidades','$categoria',1)";
 
 	if($conn->query($sql)===TRUE) {
 		$_SESSION['jobPostSuccess'] = true;

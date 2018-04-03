@@ -71,7 +71,7 @@ if(isset($_SESSION['id_usuario'])) {
 
               <div class="form-group"> <!--"form-group" quita el espacio despues del label-->
                 <label for="id">ID</label>
-                <input type="number" class="form-control" id="idEmpresa" name="idEmpresa" placeholder="Digite su identificación" required>
+                <input type="text" class="form-control" id="idEmpresa" name="idEmpresa" placeholder="Digite su identificación" required>
               </div>
               <div class="form-group">
                 <label for="nombreEmpresa">Nombre de la Empresa</label>

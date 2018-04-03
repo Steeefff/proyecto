@@ -79,6 +79,9 @@ require_once("conexion.php");
               <h1>BuscoEmpleo.com</h1>
               <p>Encuentre su trabajo soñado</p>
               <p><a class="btn btn-primary btn-lg" href="registro.php" role="button">Registro</a></p>
+
+              <!-- https://bootsnipp.com/tags/search -->
+
             </div>
           </div>
         </div>
@@ -188,7 +191,7 @@ require_once("conexion.php");
     </section>
 
 
-    
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
