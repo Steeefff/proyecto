@@ -2,7 +2,7 @@
 
 $servername = "localhost";
 $username = "root";
-$password ="root";
+$password ="";
 $dbname ="bolsaempleo";
 
 //Crear Conexion

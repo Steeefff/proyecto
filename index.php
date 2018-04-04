@@ -9,9 +9,11 @@ require_once("conexion.php");
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href="css/style.css" type="text/css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Las 3 meta etiquetas anteriores *deben* ser lo primero en la cabeza; cualquier otro contenido principal debe venir *después* de estas etiquetas -->
     <title>BuscoEmpleo.com</title>
+
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -42,6 +44,16 @@ require_once("conexion.php");
             <a class="navbar-brand" href="#">BuscoEmpleo.com</a>
           </div>
 
+          <!--David-->
+          <div class="flipkart-navbar-search smallsearch col-sm-5 col-xs-8">
+                <div class="row">
+                  <form  method="post" action="panelBusqueda.php">
+                    <input class="flipkart-navbar-input col-xs-11" type="text" placeholder="Buscar trabajo" name="buscarCaracteristicas">
+                    <input type="submit" class="flipkart-navbar-button col-xs-1">
+                    </input>
+                  </form>
+                </div>
+            </div>
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">     
             <ul class="nav navbar-nav navbar-right">
@@ -58,7 +70,6 @@ require_once("conexion.php");
 
             <?php } else { 
               ?>
-            
               <li><a href="empresa.php">Empresa</a></li>
               <li><a href="registro.php">Registro</a></li>
               <li><a href="login.php">Inicio de sesión</a></li>
@@ -95,7 +106,7 @@ require_once("conexion.php");
           <h2 class="text-center">Ultimos trabajos registrados</h2>
 
 
-          <!------ Include the above in your HEAD tag ---------->
+          <!--Include the above in your HEAD tag -->
 
             <div id="myCarousels" class="carousel slide" data-ride="carousel">
                   <!-- Indicators -->
