@@ -67,7 +67,7 @@ require_once("../conexion.php");
                 <th>Estado Puesto</th>
                 <th>Responsabilidades</th>
                 <th>Fecha </th>
-                <th>Acción</th>
+                <!--<th>Acción</th>-->
               </thead>
               <tbody>
                 <?php 
@@ -85,7 +85,9 @@ require_once("../conexion.php");
                         <td><?php echo $row['estadoPuesto']; ?></td>
                         <td><?php echo $row['responsabilidades']; ?></td>
                         <td><?php echo date("d-M-Y", strtotime($row['fecha'])); ?></td>
-                        <td><a href="editar_puestoTrabajo.php?id=<?php echo $row['id_puesto']; ?>">Editar</a> <a href="borrar_puestoTrabajo.php?id=<?php echo $row['id_puesto']; ?>">Borrar</a></td>
+                        <!--
+                        <td><a href="editar_puestoTrabajo.php?id=<?php echo $row['idPuesto']; ?>">Editar</a> <a href="borrar_puestoTrabajo.php?id=<?php echo $row['idPuesto']; ?>">Borrar</a></td>
+                      -->
                       </tr>
 
                      <?php

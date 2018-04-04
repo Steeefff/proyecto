@@ -18,6 +18,10 @@ if(empty($_SESSION['id_usuario'])) {
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+
+
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -136,6 +140,19 @@ if(empty($_SESSION['id_usuario'])) {
                 <textarea class="form-control" rows="3" id="responsabilidades" name="responsabilidades" placeholder="Responsabilidades" required=""></textarea>
               </div>
 
+
+              <div class="form-group">
+                <label>Lista de Características</label>
+                      <select name="caracteristicas" class="form-control selectpicker" data-live-search="true" multiple>
+                        
+                        <option value="1">Pan</option>
+                        <option value="2">Cafe</option>
+                        <option value="3">Queso pa mi babe</option>
+                        
+                      </select>
+              </div>
+
+
              <div class="text-center">
                 <button type="submit" class="btn btn-success">Crear Puesto</button>
              </div>
@@ -158,5 +175,8 @@ if(empty($_SESSION['id_usuario'])) {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="js/bootstrap-select.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+
   </body>
 </html>
