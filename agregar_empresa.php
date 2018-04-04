@@ -6,12 +6,13 @@ require_once("conexion.php");
 
 if(isset($_POST)){ //si recibe algo que venga en _POST haga lo que sigue
 	//caracteres especiales en string
-	$idEmpresa = mysqli_real_escape_string($conn, $_POST['idEmpresa']);
+	
+	$x = mysqli_real_escape_string($conn, $_POST['longitud']);
+	$y = mysqli_real_escape_string($conn, $_POST['latitud']);
 	$nombreEmpresa = mysqli_real_escape_string($conn, $_POST['nombreEmpresa']); //los llama por el id
 	$correo = mysqli_real_escape_string($conn, $_POST['correo']);
 	$numeroContacto = mysqli_real_escape_string($conn, $_POST['numeroContacto']);
 	$descripcion = mysqli_real_escape_string($conn, $_POST['descripcion']);
-	$localizacion = mysqli_real_escape_string($conn, $_POST['localizacion']);
 	
 
 	//encryptar la contrasena
@@ -22,7 +23,7 @@ if(isset($_POST)){ //si recibe algo que venga en _POST haga lo que sigue
 
 	if($result->num_rows == 0) {
 	
-		$sql = "INSERT INTO empresas(idEmpresa,nombre,correo,telefono,descripcion,localizacion,aprobado) VALUES ('$idEmpresa','$nombreEmpresa','$correo','$numeroContacto','$descripcion','$localizacion','0')";
+		$sql = "INSERT INTO empresas(nombre,correo,telefono,descripcion,aprobado,longitud,latitud) VALUES ('$nombreEmpresa','$correo','$numeroContacto','$descripcion','0',$x,$y)";
 
 		if($conn->query($sql)===TRUE) {
 				$_SESSION['registerCompleted'] = true;

@@ -18,7 +18,7 @@ if(empty($_SESSION['id_usuario'])) {
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap-select.min.css">
 
 
 
@@ -74,10 +74,7 @@ if(empty($_SESSION['id_usuario'])) {
           <h2 class="text-center">Crear Puesto de Trabajo</h2>
             <form method="post" action="agregar_puesto.php">
 
-               <div class="form-group">
-                <label for="idPuesto">Código del Puesto</label>
-                <input type="text" class="form-control" id="idPuesto" name="idPuesto" placeholder="Código del puesto" required="">
-              </div>
+              
 
               <div class="form-group">
                 <label for="nombrePuesto">Nombre del Puesto</label>
@@ -141,14 +138,21 @@ if(empty($_SESSION['id_usuario'])) {
               </div>
 
 
+
+              <!--HACER UN QUERY QUE SELECCIONE TODAS LAS CARACTERISTICAS-->
+
               <div class="form-group">
                 <label>Lista de Características</label>
-                      <select name="caracteristicas" class="form-control selectpicker" data-live-search="true" multiple>
+                      <select name="caracteristicas[]" class="form-control selectpicker" data-live-search="true" multiple title="Seleccione las caracteristicas" data-selected-text-format="count > 3" data-size="3">
                         
+
                         <option value="1">Pan</option>
                         <option value="2">Cafe</option>
                         <option value="3">Queso pa mi babe</option>
-                        
+                        <option value="4">Papaya</option>
+                       
+
+
                       </select>
               </div>
 
@@ -175,7 +179,7 @@ if(empty($_SESSION['id_usuario'])) {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script src="js/bootstrap-select.min.js"></script>
+    <script src="../js/bootstrap-select.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 
   </body>

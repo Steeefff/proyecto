@@ -18,7 +18,7 @@ if(isset($_SESSION['id_usuario'])) {
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
     <!--API DE GOOGLE-->
-    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&language=es&region=CR&key=
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?&language=es&region=CR&key=
 AIzaSyAtkovx7YEf0xJd4GW71JgsEjjZoFMU0F4
 "></script>
     <script type="text/javascript" src="js/map.js"></script>
@@ -73,12 +73,9 @@ AIzaSyAtkovx7YEf0xJd4GW71JgsEjjZoFMU0F4
         <div class="row">
           <div class="col-md-4 col-md-offset-4 well">
           <h2 class="text-center">Registrar Empresa</h2>
-            <form method="post" action="agregar_empresa.php">
+            <form method="post" action="agregar_empresa.php" onsubmit="onEnviar()">
 
-              <div class="form-group"> <!--"form-group" quita el espacio despues del label-->
-                <label for="id">ID</label>
-                <input type="text" class="form-control" id="idEmpresa" name="idEmpresa" placeholder="Digite su identificación" required>
-              </div>
+              
               <div class="form-group">
                 <label for="nombreEmpresa">Nombre de la Empresa</label>
                 <input type="text" class="form-control" id="nombreEmpresa" name="nombreEmpresa" placeholder="Nombre de la Empresa" required="">
@@ -96,16 +93,19 @@ AIzaSyAtkovx7YEf0xJd4GW71JgsEjjZoFMU0F4
                 <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Descripción de la empresa" required>
               </div>
               <div class="form-group">
-                <label for="localizacion">Localización</label required="">
-                <input type="text" class="form-control" id="localizacion" name="localizacion" placeholder="Localización de la empresa" required>
+                <label for="localizacion">Localización</label>
+                <!--ETIQUETA DONDE SE CREARA EL MAPA-->
+              <div id="map" style="width:100%;height:400px;border: 1px solid #000;"></div>
+
               </div>
 
-              <!--ETIQUETA DONDE SE CREARA EL MAPA-->
-              <div id="map" style="width:100%;height:400px;border: 1px solid #000;"></div>
-             
+              <!--IDS DE LAS COORDENADAS DEL MARCADOR PARA GUARDARLAS, PERO NO SE OCUPAN MOSTRAR-->
+              <input id="longitud" name="longitud" type="hidden" />
+              <input id="latitud" name="latitud" type="hidden" />
+
               
              <div class="text-center">
-                <button type="submit" class="btn btn-success">Entrar</button>
+                <button type="submit" class="btn btn-success" >Entrar</button>
              </div>
               <?php 
               if(isset($_SESSION['registerError'])) {

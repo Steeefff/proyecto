@@ -90,7 +90,6 @@ require_once("../conexion.php");
                 <th>Estado Puesto</th>
                 <th>Responsabilidades</th>
                 <th>Fecha </th>
-                <th>Acción</th>
               </thead>
               <tbody>
                 <?php 
@@ -111,7 +110,7 @@ require_once("../conexion.php");
                         <td><?php echo $row['estadoPuesto']; ?></td>
                         <td><?php echo $row['responsabilidades']; ?></td>
                         <td><?php echo date("d-M-Y", strtotime($row['fecha'])); ?></td>
-                        <?php
+                        <!--<?php
                         if($result1->num_rows > 0) { 
                           ?>
                            <td><strong>Aplicado</strong></td>
@@ -119,7 +118,7 @@ require_once("../conexion.php");
                         } else {
                         ?>
                         <td><a href="aplicar_puestoTrabajo.php?id=<?php echo $row['id_puesto']; ?>">Aplicar</a></td>
-                        <?php } ?>                        
+                        <?php } ?>-->                        
                       </tr>
                      <?php
                     }
