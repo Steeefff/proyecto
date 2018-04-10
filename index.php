@@ -41,7 +41,7 @@ require_once("conexion.php");
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">BuscoEmpleo.com</a>
+            <a class="navbar-brand" href="index.php">BuscoEmpleo.com</a>
           </div>
 
           <!--David-->
