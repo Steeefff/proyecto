@@ -48,7 +48,7 @@ require_once("../conexion.php");
             <?php
             if(isset($_SESSION['id_user'])) {
               ?>
-              <li><a href="user/dashboard.php">Panel</a></li>
+              <li><a href="panel.php">Panel</a></li>
               <li><a href="logout.php">Cerrar sesión</a></li>
             <?php
             } else { ?>
