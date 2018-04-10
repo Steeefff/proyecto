@@ -45,7 +45,7 @@ require_once("../conexion.php");
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">     
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="perfil.php">Perfil</a></li>
+              <li><a href="panel.php">Panel</a></li>
               <li><a href="../cerrar_sesion.php">Cerrar sesión</a></li>
             </ul>
           </div><!-- /.navbar-collapse -->
