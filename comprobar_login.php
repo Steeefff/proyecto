@@ -13,17 +13,30 @@ if(isset($_POST)) {
 	//Encrypt Password
 	$password = base64_encode(strrev(md5($password)));
 
-	$sql = "SELECT idOferente, nombre, apellido, correo FROM oferentes WHERE correo='$correo' AND clave='$password' AND aprobado=1 ";
+	$sql = "SELECT idOferente, nombre, apellido, correo, aprobado FROM oferentes WHERE correo='$correo' AND clave='$password'";
 	$result = $conn->query($sql);
 
 	if($result->num_rows > 0) {
 		//output data
 		while($row = $result->fetch_assoc()) {
-			$_SESSION['nombre'] = $row['nombre'] . " " . $row['apellido'];
-			$_SESSION['correo'] = $row['correo'];
-			$_SESSION['id_usuario'] = $row['idOferente'];
-			header("Location: oferente/panel.php");
-			exit();
+
+			if($row['aprobado'] == '2') {
+				$_SESSION['oferenteLoginError'] = 
+				"Su cuenta aun esta pendiente de aprobacion.";
+				header("Location: login.php");
+				exit();
+			} else if($row['aprobado'] == '0') {
+				$_SESSION['oferenteLoginError'] = "Su cuenta fue rechazada. Para mayor informacion contactenos.";
+				header("Location: login.php");
+				exit();
+			} else if($row['aprobado'] == '1') {
+
+				$_SESSION['nombre'] = $row['nombre'] . " " . $row['apellido'];
+				$_SESSION['correo'] = $row['correo'];
+				$_SESSION['id_usuario'] = $row['idOferente'];
+				header("Location: oferente/panel.php");
+				exit();
+			}
 		}
  	} else {
  		$_SESSION['loginError'] = $conn->error;
