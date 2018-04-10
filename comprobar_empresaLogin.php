@@ -1,45 +1,64 @@
 <?php
+
+
 session_start();
 header("Content-Type: text/html;charset=utf-8");
+
+
 require_once("conexion.php");
 
-//Si el usuario hizo clic en el botón de inicio de sesión 
 if(isset($_POST)) {
 
-	//Escape Special Characters in String
+
 	$correo = mysqli_real_escape_string($conn, $_POST['correo']);
-	$password = mysqli_real_escape_string($conn, $_POST['password']);
-
-	//Encrypt Password
-	$password = base64_encode(strrev(md5($password)));
+	$clave = mysqli_real_escape_string($conn, $_POST['clave']);
 
 
-	$sql = "SELECT idEmpresa, nombre, correo FROM empresas WHERE correo='$correo' AND clave='$password' AND aprobado='1'";
+	$clave = base64_encode(strrev(md5($clave)));
 
+
+	$sql = "SELECT idEmpresa, nombre, correo, aprobado FROM empresas 
+	WHERE correo='$correo' AND clave='$clave'";
 	$result = $conn->query($sql);
+
 
 	if($result->num_rows > 0) {
 		//output data
-		while($row = $result->fetch_assoc()) { 
-			$_SESSION['nombre'] = $row['nombre'];
-			$_SESSION['correo'] = $row['correo'];
-			$_SESSION['id_usuario'] = $row['idEmpresa'];
-			$_SESSION['empresaLogeada'] = true;
+		while($row = $result->fetch_assoc()) {
 
-//redireccionar a el panel de la compania luego de iniciar sesion
-			header("Location: empresa/panel.php");
-			exit();
+			if($row['aprobado'] == '2') {
+				$_SESSION['companyLoginError'] = 
+				"Su cuenta aun esta pendiente de aprobacion.";
+				header("Location: empresa_login.php");
+				exit();
+			} else if($row['aprobado'] == '0') {
+				$_SESSION['companyLoginError'] = "Su cuenta fue rechazada. Para mayor informacion contactenos.";
+				header("Location: empresa_login.php");
+				exit();
+			} else if($row['aprobado'] == '1') {
+				
+
+				$_SESSION['nombre'] = $row['nombre'];
+				$_SESSION['correo'] = $row['correo'];
+				$_SESSION['id_usuario'] = $row['idEmpresa'];
+				$_SESSION['companyLogged'] = true;
+
+				header("Location: empresa/panel.php");
+				exit();
+			}
 		}
  	} else {
+ 		
  		$_SESSION['loginError'] = $conn->error;
  		header("Location: empresa_login.php");
 		exit();
  	}
 
+ 	
  	$conn->close();
 
 } else {
-	//redirect them back to login page
+
 	header("Location: empresa_login.php");
 	exit();
 }
