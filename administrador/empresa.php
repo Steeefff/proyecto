@@ -18,7 +18,7 @@ require_once("../conexion.php");
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Empresa</title>
-
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
@@ -33,7 +33,7 @@ require_once("../conexion.php");
     
     <!-- NAVIGATION BAR -->
     <header>
-      <nav class="navbar navbar-default">
+      <nav class="navbar navbar-inverse">
         <div class="container-fluid">
           <!-- Brand and toggle get grouped for better mobile display -->
           <div class="navbar-header">
@@ -43,13 +43,14 @@ require_once("../conexion.php");
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="../index.php">BuscoEmpleo.com</a>
+            <a class="navbar-brand" href="../index.php">Info Empleo</a>
           </div>
 
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">     
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="../cerrar_sesion.php">Cerrar sesión</a></li>
+              <li><a href="../cerrar_sesion.php"><span class="glyphicon glyphicon-log-in"></span> Cerrar sesión</a></li>
+
             </ul>
           </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
@@ -80,7 +81,7 @@ require_once("../conexion.php");
             <thead>
               <th>No</th>
               <th>Nombre empresa</th>
-              <th>Localizacion</th>
+              <th>Descripcion</th>
               <th>Correo</th>
               <th>Telefono</th>
               <th>Accion</th>
@@ -96,7 +97,7 @@ require_once("../conexion.php");
                       <tr>
                         <td><?php echo ++$i; ?></td>
                         <td><?php echo $row['nombre']; ?></td>
-                        <td><?php echo $row['localizacion']; ?></td>
+                        <td><?php echo $row['descripcion']; ?></td>
                         <td><?php echo $row['correo']; ?></td>
                         <td><?php echo $row['telefono']; ?></td>
                         <td><a href="borrar_empresa.php?id=<?php echo $row['idEmpresa']; ?>">Borrar</a></td>
