@@ -13,6 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Las 3 meta etiquetas anteriores *deben* ser lo primero en la cabeza; cualquier otro contenido principal debe venir *después* de estas etiquetas -->
     <title>Login Empresa</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -28,7 +29,7 @@
     
     <!-- NAVIGATION BAR -->
     <header>
-      <nav class="navbar navbar-default">
+      <nav class="navbar navbar-inverse">
         <div class="container-fluid">
         <!-- Marca y alternar se agrupan para una mejor visualización móvil -->
           <div class="navbar-header">
@@ -38,7 +39,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">BuscoEmpleo.com</a>
+            <a class="navbar-brand" href="index.php">Info Empleo</a>
           </div>
 
           <!-- Collect the nav links, forms, and other content for toggling -->
@@ -48,12 +49,12 @@
             if(isset($_SESSION['id_usuario'])) {
               ?>
               <li><a href="oferente/panel.php">Panel</a></li>
-              <li><a href="cerrar_sesion.php">Cerrar sesión</a></li>
+              <li><a href="cerrar_sesion.php"><span class="glyphicon glyphicon-log-in"></span> Cerrar sesión</a></li>
             <?php
             } else { ?>
               <li><a href="empresa.php">Empresa</a></li>
               <li><a href="registro.php">Registro</a></li>
-              <li><a href="login.php">Iniciar Sesión</a></li>
+              <li><a href="login.php"><span class="glyphicon glyphicon-user"></span> Inicio de sesión</a></li>
             <?php } ?>
             </ul>
           </div><!-- /.navbar-collapse -->
@@ -84,7 +85,7 @@
               if(isset($_SESSION['registerCompleted'])) {
                 ?>
                 <div>
-                  <p class="text-center">You Have Registered Successfully! Your Account Approval Is Pending By Admin</p>
+                  <p class="text-center">Se registro correctamente. Su cuenta esta pendiente de aprobacion por el administrador</p>
                 </div>
               <?php
                unset($_SESSION['registerCompleted']); }
@@ -94,7 +95,7 @@
               if(isset($_SESSION['loginError'])) {
                 ?>
                 <div>
-                  <p class="text-center">Invalid Email/Password! Try Again!</p>
+                  <p class="text-center">Correo/Clave invalida, intente de nuevo!</p>
                 </div>
               <?php
                unset($_SESSION['loginError']); }

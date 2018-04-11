@@ -41,7 +41,7 @@ if(isset($_POST)) {
 				$_SESSION['nombre'] = $row['nombre'];
 				$_SESSION['correo'] = $row['correo'];
 				$_SESSION['id_usuario'] = $row['idEmpresa'];
-				$_SESSION['companyLogged'] = true;
+				$_SESSION['empresaLogeada'] = true;
 
 				header("Location: empresa/panel.php");
 				exit();

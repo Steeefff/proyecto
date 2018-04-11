@@ -9,29 +9,21 @@ require_once("conexion.php");
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link href="css/style.css" type="text/css" rel="stylesheet">
+    
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Las 3 meta etiquetas anteriores *deben* ser lo primero en la cabeza; cualquier otro contenido principal debe venir *después* de estas etiquetas -->
-    <title>BuscoEmpleo.com</title>
-
-
+    <title>Info Empleo</title>
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel= "stylesheet" type="text/css" href="css/carrusel.css">
-
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+   
+    <link rel="stylesheet" href="css/carrusel.css" type="text/css">
+    <link rel="stylesheet" href="css/custom.css" type="text/css">
   </head>
   <body>
     
     <!-- NAVIGATION BAR (MENU)-->
     <header>
-      <nav class="navbar navbar-default">
+      <nav class="navbar navbar-inverse" >
         <div class="container-fluid">
           <!-- Brand and toggle get grouped for better mobile display -->
           <div class="navbar-header">
@@ -41,22 +33,14 @@ require_once("conexion.php");
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.php">BuscoEmpleo.com</a>
+            <a class="navbar-brand" href="index.php">Info Empleo</a>
           </div>
 
-          <!--David-->
-          <div class="flipkart-navbar-search smallsearch col-sm-5 col-xs-8">
-                <div class="row">
-                  <form  method="post" action="panelBusqueda.php">
-                    <input class="flipkart-navbar-input col-xs-11" type="text" placeholder="Buscar trabajo" name="buscarCaracteristicas">
-                    <input type="submit" class="flipkart-navbar-button col-xs-1">
-                    </input>
-                  </form>
-                </div>
-            </div>
+         
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">     
             <ul class="nav navbar-nav navbar-right">
+            
             <?php
             if(isset($_SESSION['id_usuario']) && empty($_SESSION['empresaLogeada'])) {
               ?>
@@ -66,13 +50,14 @@ require_once("conexion.php");
          } else if(isset($_SESSION['id_usuario']) && isset($_SESSION['empresaLogeada'])) {
             ?>
             <li><a href="empresa/panel.php">Panel</a></li>
-            <li><a href="cerrar_sesion.php">Cerrar sesión</a></li>
+            <li><a href="cerrar_sesion.php"><span class="glyphicon glyphicon-log-in"></span> Cerrar sesión</a></li>
 
             <?php } else { 
               ?>
               <li><a href="empresa.php">Empresa</a></li>
               <li><a href="registro.php">Registro</a></li>
-              <li><a href="login.php">Inicio de sesión</a></li>
+              <li><a href="#ancla" id="a">Acera de nosotros</a></li>
+              <li><a href="login.php"><span class="glyphicon glyphicon-user"></span> Inicio de sesión</a></li>
             <?php } ?>
             </ul>
           </div><!-- /.navbar-collapse -->
@@ -80,16 +65,27 @@ require_once("conexion.php");
       </nav>
     </header>
 <!-- FIN DE MENU -->
+    <div class="content-wrapper" style="margin-left: 0px;">
+        <section class="content-header bg-main">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12 text-center index-head">
+                <h1>Info Empleo</h1>
+                  <p>Encuentre su trabajo soñado</p>
+                <!--David-->
+                    <nav class="navbar navbar-light bg-light">
+                      <form class="form-inline" method="post" action="panelBusqueda.php">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Buscar trabajo"  name="buscarCaracteristicas" aria-label="Search">
+                        <button class="btn btn-info"  type="submit">Buscar</button>
+                      </form>
+                    </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+        </section>
 
 
-    <section>
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="jumbotron text-center">
-              <h1>BuscoEmpleo.com</h1>
-              <p>Encuentre su trabajo soñado</p>
-              <p><a class="btn btn-primary btn-lg" href="registro.php" role="button">Registro</a></p>
 
               <!-- https://bootsnipp.com/tags/search -->
 
@@ -145,7 +141,7 @@ require_once("conexion.php");
                                     <p><?php echo $row['descripcion'];?></p>
                                    </div>  
                                         <div class="">
-                                              <a class="btn btn-lg btn-primary site-btn" href="#">Ver Empleo</a>
+                                              <a class="btn btn-info" href="#">Ver Empleo</a>
                                           </div>
                                   </div><!-- /header-text -->
                         </div>
@@ -170,36 +166,40 @@ require_once("conexion.php");
         </div><!--cierre de row-->
       </div><!--cierre de container-->
     </section>
+<br>
+</div>
 
-    <!-- Lista de empresas -->
-    <section>
+   <section id="about" class="content-header">
+    <a name="ancla"></a>
       <div class="container">
         <div class="row">
-          <h2 class="text-center">Lista de Empresas</h2>
-          <div class="col-xs-6 col-md-3">
-            <a href="#" class="thumbnail">
-              <img src="..." alt="...">
-            </a>
+          <div class="col-md-12 text-center" >
+            <h1>Acerca de nosotros</h1>                      
           </div>
-          <div class="col-xs-6 col-md-3">
-            <a href="#" class="thumbnail">
-              <img src="..." alt="...">
-            </a>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <img src="images/acerca.png" class="img-responsive">
           </div>
-          <div class="col-xs-6 col-md-3">
-            <a href="#" class="thumbnail">
-              <img src="..." alt="...">
-            </a>
-          </div>
-          <div class="col-xs-6 col-md-3">
-            <a href="#" class="thumbnail">
-              <img src="..." alt="...">
-            </a>
+          <div class="col-md-6 about-text margin-bottom-20">
+            <h4>La página Info Empleo posibilita la vinculación entre personas en busca de empleo y empresas o personas con requerimientos de personal, considerando aspectos como ocupación, experiencia, grado académico, entre otros. 
+            </h4>
+            <h4>
+              En el caso de las empresas, al momento de realizar la vinculación, el sistema automáticamente muestra la lista de personas que cumplen el perfil requerido y, simultáneamente, remite un correo electrónico a esas personas informando que existe una vacante de acuerdo a su perfil.
+            </h4>
           </div>
         </div>
       </div>
-
     </section>
+
+  </div>
+  <!-- /.content-wrapper -->
+
+  <footer class="main-footer" style="margin-left: 0px;">
+    <div class="text-center">
+      <strong> 2018 - Info Empleo</a>.</strong> 
+    </div>
+  </footer>
 
 
 
