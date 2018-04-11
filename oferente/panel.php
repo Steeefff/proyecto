@@ -8,12 +8,15 @@ if(empty($_SESSION['id_usuario'])) {
 require_once("../conexion.php");
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta http-equiv="Content-Type" content="text/html; charset= ISO-8859-1" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
     <title>Panel</title>
 
     <!-- Bootstrap -->
@@ -30,7 +33,7 @@ require_once("../conexion.php");
     
     <!-- NAVIGATION BAR -->
     <header>
-      <nav class="navbar navbar-default">
+      <nav class="navbar navbar-inverse">
         <div class="container-fluid">
           <!-- Brand and toggle get grouped for better mobile display -->
           <div class="navbar-header">
@@ -40,14 +43,15 @@ require_once("../conexion.php");
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="../index.php"">BuscoEmpleo.com</a>
+            <a class="navbar-brand" href="../index.php"">Info Empleo</a>
           </div>
 
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">     
             <ul class="nav navbar-nav navbar-right">
               <li><a href="perfil.php">Perfil</a></li>
-              <li><a href="../cerrar_sesion.php">Cerrar sesión</a></li>             
+              <li><a href="../cerrar_sesion.php"><span class="glyphicon glyphicon-log-in"></span> Cerrar sesión</a></li>
+             
           </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
       </nav>
