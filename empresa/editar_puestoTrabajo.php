@@ -14,6 +14,7 @@ require_once("../conexion.php");
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Editar Puesto</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -29,7 +30,7 @@ require_once("../conexion.php");
     
     <!-- NAVIGATION BAR -->
     <header>
-      <nav class="navbar navbar-default">
+      <nav class="navbar navbar-inverse">
         <div class="container-fluid">
           <!-- Brand and toggle get grouped for better mobile display -->
           <div class="navbar-header">
@@ -39,7 +40,7 @@ require_once("../conexion.php");
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">BuscoEmpleo.com</a>
+            <a class="navbar-brand" href="../index.php">Info Empleo</a>
           </div>
 
           <!-- Collect the nav links, forms, and other content for toggling -->
@@ -49,7 +50,8 @@ require_once("../conexion.php");
             if(isset($_SESSION['id_user'])) {
               ?>
               <li><a href="panel.php">Panel</a></li>
-              <li><a href="logout.php">Cerrar sesión</a></li>
+            <li><a href="../cerrar_sesion.php"><span class="glyphicon glyphicon-log-in"></span> Cerrar sesión</a></li>
+
             <?php
             } else { ?>
               <li><a href="company.php">Empresa</a></li>
