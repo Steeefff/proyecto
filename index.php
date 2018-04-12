@@ -21,7 +21,7 @@ require_once("conexion.php");
   </head>
   <body>
     
-    <!-- NAVIGATION BAR (MENU)-->
+    <!------------------------------ NAVIGATION BAR (MENU)-------------------------------------->
     <header>
       <nav class="navbar navbar-inverse" >
         <div class="container-fluid">
@@ -36,35 +36,41 @@ require_once("conexion.php");
             <a class="navbar-brand" href="index.php">Info Empleo</a>
           </div>
 
-         
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">     
             <ul class="nav navbar-nav navbar-right">
             
+            <!-----------------TODOS (PUBLICO Y PRIVADO)------------------>
+            <li><a href="ver_puestos.php">Ver Puestos</a></li>
+
+            <!-----------------LOGUEADO COMO USUARIO------------------>
             <?php
             if(isset($_SESSION['id_usuario']) && empty($_SESSION['empresaLogeada'])) {
               ?>
+              <li><a href="trabajos_aplicados.php">Mis Trabajos Aplicados</a></li>
               <li><a href="oferente/panel.php">Panel</a></li>
               <li><a href="cerrar_sesion.php">Cerrar sesión</a></li>
+            
+            <!-----------------LOGUEADO COMO EMPRESA------------------>
             <?php
-         } else if(isset($_SESSION['id_usuario']) && isset($_SESSION['empresaLogeada'])) {
+            } else if(empty($_SESSION['id_usuario']) && isset($_SESSION['empresaLogeada'])) {
             ?>
             <li><a href="empresa/panel.php">Panel</a></li>
             <li><a href="cerrar_sesion.php"><span class="glyphicon glyphicon-log-in"></span> Cerrar sesión</a></li>
 
-            <?php } else { 
-              ?>
+            <!----------------- SOLO PARTE PUBLICA(no privada)------------------>
+            <?php } else { ?>
               <li><a href="empresa.php">Empresa</a></li>
               <li><a href="registro.php">Registro</a></li>
-              <li><a href="#ancla" id="a">Acera de nosotros</a></li>
               <li><a href="login.php"><span class="glyphicon glyphicon-user"></span> Inicio de sesión</a></li>
-            <?php } ?>
+            <?php } ?>              
             </ul>
           </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
       </nav>
     </header>
-<!-- FIN DE MENU -->
+<!------------------------------------------------------- FIN DE MENU -------------------------------------------->
+
     <div class="content-wrapper" style="margin-left: 0px;">
         <section class="content-header bg-main">
           <div class="container">
@@ -73,12 +79,12 @@ require_once("conexion.php");
                 <h1>Info Empleo</h1>
                   <p>Encuentre su trabajo soñado</p>
                 <!--David-->
-                    <nav class="navbar navbar-light bg-light">
-                      <form class="form-inline" method="post" action="panelBusqueda.php">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Buscar trabajo"  name="buscarCaracteristicas" aria-label="Search">
-                        <button class="btn btn-info"  type="submit">Buscar</button>
+                    
+                      <form class="form-inline" method="post" action="ver_puestos.php">
+                        <!--<input class="form-control mr-sm-2" type="search" placeholder="Buscar trabajo"  name="buscarCaracteristicas" aria-label="Search">-->
+                        <button class="btn btn-info" type="submit">Buscar</button>
                       </form>
-                    </nav>
+                    
               </div>
             </div>
           </div>
@@ -140,9 +146,9 @@ require_once("conexion.php");
                                     <h2><?php echo $row['nombrePuesto'];?></h2>
                                     <p><?php echo $row['descripcion'];?></p>
                                    </div>  
-                                        <div class="">
+                                        <!--<div class="">
                                               <a class="btn btn-info" href="#">Ver Empleo</a>
-                                          </div>
+                                          </div>-->
                                   </div><!-- /header-text -->
                         </div>
                 <?php

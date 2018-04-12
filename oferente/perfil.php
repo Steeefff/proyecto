@@ -28,9 +28,9 @@ require_once("../conexion.php");
   </head>
   <body>
     
-    <!-- NAVIGATION BAR -->
+   <!------------------------------ NAVIGATION BAR (MENU)-------------------------------------->
     <header>
-      <nav class="navbar navbar-inverse">
+      <nav class="navbar navbar-inverse" >
         <div class="container-fluid">
           <!-- Brand and toggle get grouped for better mobile display -->
           <div class="navbar-header">
@@ -40,33 +40,58 @@ require_once("../conexion.php");
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="../index.php">Info Empleo</a>
+            <a class="navbar-brand" href="index.php">Info Empleo</a>
           </div>
 
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">     
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="perfil.php">Perfil</a></li>
-            <li><a href="../cerrar_sesion.php"><span class="glyphicon glyphicon-log-in"></span> Cerrar sesión</a></li>
+            
+            <!-----------------TODOS (PUBLICO Y PRIVADO)------------------>
+            <li><a href="ver_puestos.php">Ver Puestos</a></li>
 
+            <!-----------------LOGUEADO COMO USUARIO------------------>
+            <?php
+            if(isset($_SESSION['id_usuario']) && empty($_SESSION['empresaLogeada'])) {
+              ?>
+              <li><a href="trabajos_aplicados.php">Mis Trabajos Aplicados</a></li>
+              <li><a href="oferente/panel.php">Panel</a></li>
+              <li><a href="cerrar_sesion.php">Cerrar sesión</a></li>
+            
+            <!-----------------LOGUEADO COMO EMPRESA------------------>
+            <?php
+            } else if(empty($_SESSION['id_usuario']) && isset($_SESSION['empresaLogeada'])) {
+            ?>
+            <li><a href="empresa/panel.php">Panel</a></li>
+            <li><a href="cerrar_sesion.php"><span class="glyphicon glyphicon-log-in"></span> Cerrar sesión</a></li>
+
+            <!----------------- SOLO PARTE PUBLICA(no privada)------------------>
+            <?php } else { ?>
+              <li><a href="empresa.php">Empresa</a></li>
+              <li><a href="registro.php">Registro</a></li>
+              <li><a href="login.php"><span class="glyphicon glyphicon-user"></span> Inicio de sesión</a></li>
+            <?php } ?>              
             </ul>
           </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
       </nav>
     </header>
+<!------------------------------------------------------- FIN DE MENU -------------------------------------------->
+
 
     <section>
       <div class="container">
         <div class="row">
           <div class="col-md-6 col-md-offset-3 well">
-          <h2 class="text-center">Profile</h2>
+          <h2 class="text-center">Perfil de Oferente</h2>
             <form method="post" action="actualizar_perfil.php">
             <?php
 
-            $sql = "SELECT * FROM usuarios WHERE id_usuario='$_SESSION[id_usuario]'";
+            $sql = "SELECT * FROM oferentes WHERE idOferente='$_SESSION[id_usuario]'";
             $result = $conn->query($sql);
 
             if($result->num_rows > 0) {
+              //row guarda la fila que me trajo el select  y con el fecht_assoc me va a cambiar la fila como un ++ para irle sacando los datos de nombre, apellido, correo etc...
               while($row = $result->fetch_assoc()) {
             ?>
               <div class="form-group">
@@ -79,44 +104,23 @@ require_once("../conexion.php");
               </div>
               <div class="form-group">
                 <label for="correo">Correo</label>
-                <input type="email" class="form-control" id="correo" placeholder="Correo" value="<?php echo $row['correo']; ?>" readonly>
+                <input type="email" class="form-control" id="correo" placeholder="Correo" value="<?php echo $row['correo']; ?>">
+              </div>
+              
+              <div class="form-group">
+                <label for="provincia">nacionalidad</label>
+                <input type="text" class="form-control" id="nacionalidad" name="nacionalidad" placeholder="Nacionalidad" value="<?php echo $row['nacionalidad']; ?>">
               </div>
               <div class="form-group">
-                <label for="direccion">Dirección</label>
-                <textarea id="direccion" name="direccion" class="form-control" rows="5" placeholder="Dirección"><?php echo $row['direccion']; ?></textarea>
+                <label for="ciudad">Teléfono</label>
+                <input type="text" class="form-control" id="telefono" name="telefono" value="<?php echo $row['telefono']; ?>" placeholder="Numero de Telefono">
               </div>
               <div class="form-group">
-                <label for="provincia">Provincia</label>
-                <input type="text" class="form-control" id="provincia" name="provincia" placeholder="Provincia" value="<?php echo $row['provincia']; ?>">
+                <label for="contactno">Residencia</label>
+                <input type="text" class="form-control" id="Residencia" name="residencia" placeholder="Lugar de Residencia" value="<?php echo $row['residencia']; ?>">
               </div>
-              <div class="form-group">
-                <label for="ciudad">Ciudad</label>
-                <input type="text" class="form-control" id="ciudad" name="ciudad" value="<?php echo $row['ciudad']; ?>" placeholder="Ciudad">
-              </div>
-              <div class="form-group">
-                <label for="contactno">Numero de Contacto</label>
-                <input type="text" class="form-control" id="contactno" name="contactno" placeholder="Número de contacto" value="<?php echo $row['contactno']; ?>">
-              </div>
-              <div class="form-group">
-                <label for="calificacion">Calificación más alta</label>
-                <input type="text" class="form-control" id="calificacion" name="calificacion" placeholder="Calificación más alta" value="<?php echo $row['calificacion']; ?>">
-              </div>
-              <div class="form-group">
-                <label for="anoPasa">Año que pasa</label>
-                <input type="date" class="form-control" id="anoPasa" name="anoPasa" placeholder="Año que pasa" value="<?php echo $row['anoPasa']; ?>">
-              </div>
-              <div class="form-group">
-                <label for="fechaNacimiento">Fecha de nacimiento</label>
-                <input type="date" class="form-control" id="fechaNacimiento" name="fechaNacimiento" placeholder="Fecha de Nacimiento" value="<?php echo $row['fechaNacimiento']; ?>">
-              </div>
-              <div class="form-group">
-                <label for="edad">Edad</label>
-                <input type="text" class="form-control" id="edad" name="edad" placeholder="Edad" value="<?php echo $row['edad']; ?>">
-              </div>
-              <div class="form-group">
-                <label for="ocupacion">Ocupación</label>
-                <input type="text" class="form-control" id="ocupacion" name="ocupacion" placeholder="Ocupación" value="<?php echo $row['ocupacion']; ?>">
-              </div>
+              
+              
               <div class="text-center">
                 <button type="submit" class="btn btn-success">Actualizar</button>
               </div>

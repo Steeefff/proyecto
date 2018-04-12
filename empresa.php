@@ -29,9 +29,9 @@ if(isset($_SESSION['id_usuario'])) {
   </head>
   <body>
     
-    <!-- NAVIGATION BAR -->
+    <!------------------------------ NAVIGATION BAR (MENU)-------------------------------------->
     <header>
-      <nav class="navbar navbar-inverse">
+      <nav class="navbar navbar-inverse" >
         <div class="container-fluid">
           <!-- Brand and toggle get grouped for better mobile display -->
           <div class="navbar-header">
@@ -47,30 +47,37 @@ if(isset($_SESSION['id_usuario'])) {
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">     
             <ul class="nav navbar-nav navbar-right">
+            
+            <!-----------------TODOS (PUBLICO Y PRIVADO)------------------>
+            <li><a href="ver_puestos.php">Ver Puestos</a></li>
+            <!-----------------LOGUEADO COMO USUARIO------------------>
             <?php
             if(isset($_SESSION['id_usuario']) && empty($_SESSION['empresaLogeada'])) {
               ?>
+              <li><a href="trabajos_aplicados.php">Mis Trabajos Aplicados</a></li>
               <li><a href="oferente/panel.php">Panel</a></li>
+              <li><a href="cerrar_sesion.php">Cerrar sesión</a></li>
+            
+            <!-----------------LOGUEADO COMO EMPRESA------------------>
+            <?php
+            } else if(empty($_SESSION['id_usuario']) && isset($_SESSION['empresaLogeada'])) {
+            ?>
+            <li><a href="empresa/panel.php">Panel</a></li>
             <li><a href="cerrar_sesion.php"><span class="glyphicon glyphicon-log-in"></span> Cerrar sesión</a></li>
 
-              <?php
-            }else if(isset($_SESSION['id_usuario']) && isset($_SESSION['empresaLogeada'])){
-              ?>
-              <li><a href="empresa/panel.php">Panel</a></li>
-              <li><a href="cerrar_sesion.php"><span class="glyphicon glyphicon-log-in"></span> Cerrar sesión</a></li>
-
-              <?php } else { ?>
-            
+            <!----------------- SOLO PARTE PUBLICA(no privada)------------------>
+            <?php } else { ?>
               <li><a href="empresa.php">Empresa</a></li>
               <li><a href="registro.php">Registro</a></li>
               <li><a href="login.php"><span class="glyphicon glyphicon-user"></span> Inicio de sesión</a></li>
-            <?php } ?>
+            <?php } ?>              
             </ul>
           </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
       </nav>
     </header>
-  
+<!------------------------------------------------------- FIN DE MENU -------------------------------------------->
+
 
    <section>
       <div class="container">

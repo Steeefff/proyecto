@@ -23,7 +23,7 @@ if(isset($_POST)){ //si recibe algo que venga en _POST haga lo que sigue
 
 	if($result->num_rows == 0) {
 	
-		$sql = "INSERT INTO empresas(nombre,correo,telefono,descripcion,aprobado,longitud,latitud) VALUES ('$nombreEmpresa','$correo','$numeroContacto','$descripcion','0',$x,$y)";
+		$sql = "INSERT INTO empresas(nombre,correo,telefono,descripcion,aprobado,longitud,latitud) VALUES ('$nombreEmpresa','$correo','$numeroContacto','$descripcion','2',$x,$y)";
 
 		if($conn->query($sql)===TRUE) {
 				$_SESSION['registerCompleted'] = true;

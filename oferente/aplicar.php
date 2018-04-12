@@ -21,7 +21,7 @@ if(isset($_POST)) {
 
 		if($conn->query($sql)===TRUE) {
 			$_SESSION['jobApplySuccess'] = true;
-			header("Location: panel.php");
+			header("Location: ver_puestos.php");
 			exit();
 		} else {
 			echo "Error " . $sql . "<br>" . $conn->error;
@@ -30,12 +30,12 @@ if(isset($_POST)) {
 		$conn->close();
 
     }  else {
-		header("Location: panel.php");
+		header("Location: ver_puestos.php");
 		exit();
 	}
 	
 
 } else {
-	header("Location: panel.php");
+	header("Location: ver_puestos.php");
 	exit();
 }

@@ -28,9 +28,9 @@ require_once("../conexion.php");
   </head>
   <body>
     
-    <!-- NAVIGATION BAR -->
+    <!------------------------------ NAVIGATION BAR (MENU)-------------------------------------->
     <header>
-      <nav class="navbar navbar-inverse">
+      <nav class="navbar navbar-inverse" >
         <div class="container-fluid">
           <!-- Brand and toggle get grouped for better mobile display -->
           <div class="navbar-header">
@@ -40,20 +40,44 @@ require_once("../conexion.php");
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="../index.php">Info Empleo</a>
+            <a class="navbar-brand" href="index.php">Info Empleo</a>
           </div>
 
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">     
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="perfil.php">Perfil</a></li>
-            <li><a href="../cerrar_sesion.php"><span class="glyphicon glyphicon-log-in"></span> Cerrar sesión</a></li>
+            
+            <!-----------------TODOS (PUBLICO Y PRIVADO)------------------>
+            <li><a href="ver_puestos.php">Ver Puestos</a></li>
 
+            <!-----------------LOGUEADO COMO USUARIO------------------>
+            <?php
+            if(isset($_SESSION['id_usuario']) && empty($_SESSION['empresaLogeada'])) {
+              ?>
+              <li><a href="trabajos_aplicados.php">Mis Trabajos Aplicados</a></li>
+              <li><a href="oferente/panel.php">Panel</a></li>
+              <li><a href="cerrar_sesion.php">Cerrar sesión</a></li>
+            
+            <!-----------------LOGUEADO COMO EMPRESA------------------>
+            <?php
+            } else if(empty($_SESSION['id_usuario']) && isset($_SESSION['empresaLogeada'])) {
+            ?>
+            <li><a href="empresa/panel.php">Panel</a></li>
+            <li><a href="cerrar_sesion.php"><span class="glyphicon glyphicon-log-in"></span> Cerrar sesión</a></li>
+
+            <!----------------- SOLO PARTE PUBLICA(no privada)------------------>
+            <?php } else { ?>
+              <li><a href="empresa.php">Empresa</a></li>
+              <li><a href="registro.php">Registro</a></li>
+              <li><a href="login.php"><span class="glyphicon glyphicon-user"></span> Inicio de sesión</a></li>
+            <?php } ?>              
             </ul>
           </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
       </nav>
     </header>
+<!------------------------------------------------------- FIN DE MENU -------------------------------------------->
+
 
     <div class="container">
 
@@ -65,17 +89,16 @@ require_once("../conexion.php");
             <h2 class="text-center">Trabajos Aplicados</h2>
             <table class="table table-striped">
               <thead>
+                 <!---------------------------Encabezado de mi tabla---------------------------->
                <th>Nombre del Trabajo</th>
                 <th>Descripción </th>
-                <th>Salario Mínimo</th>
-                <th>Salario Máximo</th>
-                <th>Experiencia</th>
-                <th>Requisitos</th>
+                <th>Salario</th>
+                <th>Responsabilidades</th>
                 <th>Fecha </th>
               </thead>
               <tbody>
                 <?php 
-                  $sql = "SELECT * FROM puesto_trabajo INNER JOIN aplicar_trabajo ON puesto_trabajo.id_puesto=aplicar_trabajo.id_puesto WHERE aplicar_trabajo.id_usuario='$_SESSION[id_usuario]'";
+                  $sql = "SELECT * FROM puestos JOIN postulante ON postulante.idPuesto=puestos.idPuesto WHERE postulante.idCandidato='$_SESSION[id_usuario]'";
                   $result = $conn->query($sql);
                   if($result->num_rows > 0) {
                     while($row = $result->fetch_assoc()) 
@@ -83,13 +106,12 @@ require_once("../conexion.php");
                       
                      ?>
                       <tr>
-                        <td><?php echo $row['tituloTrabajo']; ?></td>
-                        <td><?php echo $row['descripcionTrabajo']; ?></td>
-                        <td><?php echo $row['salarioMinimo']; ?></td>
-                        <td><?php echo $row['salarioMaximo']; ?></td>
-                        <td><?php echo $row['experienciaRequerida']; ?></td>
-                        <td><?php echo $row['requisitos']; ?></td>
-                        <td><?php echo date("d-M-Y", strtotime($row['fechaCreacion'])); ?></td>                                              
+                       <!---------------------------Campos que voy a traer en el select---------------->
+                        <td><?php echo $row['nombrePuesto']; ?></td>
+                        <td><?php echo $row['descripcion']; ?></td>
+                        <td><?php echo $row['salario']; ?></td>
+                        <td><?php echo $row['responsabilidades']; ?></td>
+                        <td><?php echo date("d-M-Y", strtotime($row['fecha'])); ?></td>                                              
                       </tr>
                      <?php
                     }

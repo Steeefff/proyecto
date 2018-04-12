@@ -8,21 +8,16 @@ if(isset($_POST)) {
 	//Escape Special Characters
 	$nombre = mysqli_real_escape_string($conn, $_POST['nombre']);
 	$apellido = mysqli_real_escape_string($conn, $_POST['apellido']);
-	$direccion = mysqli_real_escape_string($conn, $_POST['direccion']);
-	$provincia = mysqli_real_escape_string($conn, $_POST['provincia']);
-	$ciudad = mysqli_real_escape_string($conn, $_POST['ciudad']);
-	$contactno = mysqli_real_escape_string($conn, $_POST['contactno']);
-	$calificacion = mysqli_real_escape_string($conn, $_POST['calificacion']);
-	$anoPasa = mysqli_real_escape_string($conn, $_POST['anoPasa']);
-	$fechaNacimiento = mysqli_real_escape_string($conn, $_POST['fechaNacimiento']);
-	$edad = mysqli_real_escape_string($conn, $_POST['edad']);
-	$ocupacion = mysqli_real_escape_string($conn, $_POST['ocupacion']);
+	$correo = mysqli_real_escape_string($conn, $_POST['correo']);
+	$nacionalidad = mysqli_real_escape_string($conn, $_POST['nacionalidad']);
+	$telefono = mysqli_real_escape_string($conn, $_POST['telefono']);
+	$residencia = mysqli_real_escape_string($conn, $_POST['residencia']);
 
 	//Update Query
-	$sql = "UPDATE usuarios SET nombre='$nombre', apellido='$apellido', direccion='$direccion', provincia='$provincia', ciudad='$ciudad', contactno='$contactno', calificacion='$calificacion', anoPasa='$anoPasa', fechaNacimiento='$fechaNacimiento', edad='$edad', ocupacion='$ocupacion' WHERE id_usuario='$_SESSION[id_usuario]'";
+	$sql = "UPDATE oferentes SET nombre='$nombre', apellido='$apellido', correo='$correo', nacionalidad='$nacionalidad', telefono='$telefono', residencia='$residencia' WHERE idOferente='$_SESSION[id_usuario]'";
 
 	if($conn->query($sql) === TRUE) {
-		header("Location: panel.php");
+		header("Location: ver_puestos.php");
 		exit();
 	} else {
 		echo "Error ". $sql . "<br>" . $conn->error;
@@ -31,6 +26,6 @@ if(isset($_POST)) {
 	$conn->close();
 
 } else {
-	header("Location: panel.php");
+	header("Location: ver_puestos.php");
 	exit();
 }

@@ -51,7 +51,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-4 col-md-offset-4 well">
-          <h2 class="text-center">Iniciar sesión</h2>
+          <h2 class="text-center">Iniciar sesión Administrador</h2>
             <form method="post" action="comprobar_login.php">
               <div class="form-group">
                 <label for="nombre">Nombre</label>

@@ -11,7 +11,7 @@ if(isset($_POST)) {
 	$password = mysqli_real_escape_string($conn, $_POST['password']);
 
 	//Encrypt Password
-	$password = base64_encode(strrev(md5($password)));
+	//$password = base64_encode(strrev(md5($password)));
 
 	$sql = "SELECT idOferente, nombre, apellido, correo, aprobado FROM oferentes WHERE correo='$correo' AND clave='$password'";
 	$result = $conn->query($sql);
@@ -21,8 +21,7 @@ if(isset($_POST)) {
 		while($row = $result->fetch_assoc()) {
 
 			if($row['aprobado'] == '2') {
-				$_SESSION['oferenteLoginError'] = 
-				"Su cuenta aun esta pendiente de aprobacion.";
+				$_SESSION['oferenteLoginError'] = "Su cuenta aun esta pendiente de aprobacion.";
 				header("Location: login.php");
 				exit();
 			} else if($row['aprobado'] == '0') {
@@ -34,12 +33,12 @@ if(isset($_POST)) {
 				$_SESSION['nombre'] = $row['nombre'] . " " . $row['apellido'];
 				$_SESSION['correo'] = $row['correo'];
 				$_SESSION['id_usuario'] = $row['idOferente'];
-				header("Location: oferente/panel.php");
+				header("Location: ver_puestos.php");
 				exit();
 			}
 		}
  	} else {
- 		$_SESSION['loginError'] = $conn->error;
+ 		$_SESSION['oferenteLoginError'] = "Contraseña/Usuario invalido, intente de nuevo!";
  		header("Location: login.php");
 		exit();
  	}
