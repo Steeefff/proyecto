@@ -1,10 +1,6 @@
 <?php
 session_start();
 header("Content-Type: text/html;charset=utf-8");
-if(empty($_SESSION['id_usuario'])) {
-  header("Location: ../index.php");
-  exit();
-}
 require_once("../conexion.php");
 ?>
 <!DOCTYPE html>
@@ -16,6 +12,8 @@ require_once("../conexion.php");
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta http-equiv="Content-Type" content="text/html; charset= ISO-8859-1" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <link rel="stylesheet" href="../css/buscador.css" type="text/css">
+
 
     <title>Panel</title>
 
@@ -31,9 +29,9 @@ require_once("../conexion.php");
   </head>
   <body>
     
-    <!-- NAVIGATION BAR -->
+    <!------------------------------ NAVIGATION BAR (MENU)-------------------------------------->
     <header>
-      <nav class="navbar navbar-inverse">
+      <nav class="navbar navbar-inverse" >
         <div class="container-fluid">
           <!-- Brand and toggle get grouped for better mobile display -->
           <div class="navbar-header">
@@ -43,19 +41,44 @@ require_once("../conexion.php");
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="../index.php"">Info Empleo</a>
+            <a class="navbar-brand" href="index.php">Info Empleo</a>
           </div>
 
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">     
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="perfil.php">Perfil</a></li>
-              <li><a href="../cerrar_sesion.php"><span class="glyphicon glyphicon-log-in"></span> Cerrar sesión</a></li>
-             
+            
+            <!-----------------TODOS (PUBLICO Y PRIVADO)------------------>
+            <li><a href="ver_puestos.php">Ver Puestos</a></li>
+
+            <!-----------------LOGUEADO COMO USUARIO------------------>
+            <?php
+            if(isset($_SESSION['id_usuario']) && empty($_SESSION['empresaLogeada'])) {
+              ?>
+              <li><a href="trabajos_aplicados.php">Mis Trabajos Aplicados</a></li>
+              <li><a href="oferente/panel.php">Panel</a></li>
+              <li><a href="cerrar_sesion.php">Cerrar sesión</a></li>
+            
+            <!-----------------LOGUEADO COMO EMPRESA------------------>
+            <?php
+            } else if(empty($_SESSION['id_usuario']) && isset($_SESSION['empresaLogeada'])) {
+            ?>
+            <li><a href="empresa/panel.php">Panel</a></li>
+            <li><a href="cerrar_sesion.php"><span class="glyphicon glyphicon-log-in"></span> Cerrar sesión</a></li>
+
+            <!----------------- SOLO PARTE PUBLICA(no privada)------------------>
+            <?php } else { ?>
+              <li><a href="empresa.php">Empresa</a></li>
+              <li><a href="registro.php">Registro</a></li>
+              <li><a href="login.php"><span class="glyphicon glyphicon-user"></span> Inicio de sesión</a></li>
+            <?php } ?>              
+            </ul>
           </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
       </nav>
     </header>
+<!------------------------------------------------------- FIN DE MENU -------------------------------------------->
+
 
     <div class="container">
 
@@ -71,14 +94,18 @@ require_once("../conexion.php");
       
       <!-- otras funciones del panel -->
       <div class="row">
-        <h2 class="text-center">Mi Panel</h2>
-        <div class="col-md-2">
-          <a href="trabajos_aplicados.php" class="btn btn-success">Trabajos Aplicados</a>
+        
+        <div class="col-md-4 col-md-offset-1">
+            <form action="" class="search-form">
+                <div class="form-group has-feedback">
+                <label for="search" class="sr-only">Buscar</label>
+                <input type="text" class="form-control" name="search" id="buscar" placeholder="Buscar puesto">
+                  <span class="glyphicon glyphicon-search form-control-feedback"></span>
+              </div>
+            </form>
         </div>
-        <div class="col-md-2">
-          <a href="" class="btn btn-success">Mi curriculum</a>
-        </div>
-      </div>
+       </div>
+      
 
       <!-- buscar y aplicar a los puestos de trabajo -->
       <div class="row">
@@ -91,13 +118,13 @@ require_once("../conexion.php");
                 <th>Descripción </th>
                 <th>Salario</th>
                 <th>Vacantes</th>
-                <th>Estado Puesto</th>
                 <th>Responsabilidades</th>
                 <th>Fecha </th>
               </thead>
               <tbody>
                 <?php 
                   $sql = "SELECT * FROM puestos";
+                  //$sql = "SELECT puestos.idPuesto, puestos.nombrePuesto,puestos.salario,puestos.fecha, empresas.nombre FROM puestos JOIN empresas ON puestos.idEmpresa=empresas.idEmpresa";
                   $result = $conn->query($sql);
                   if($result->num_rows > 0) {
                     while($row = $result->fetch_assoc()) 
@@ -111,18 +138,17 @@ require_once("../conexion.php");
                         <td><?php echo $row['descripcion']; ?></td>
                         <td><?php echo $row['salario']; ?></td>
                         <td><?php echo $row['numVacantes']; ?></td>
-                        <td><?php echo $row['estadoPuesto']; ?></td>
                         <td><?php echo $row['responsabilidades']; ?></td>
                         <td><?php echo date("d-M-Y", strtotime($row['fecha'])); ?></td>
-                        <!--<?php
+                        <?php
                         if($result1->num_rows > 0) { 
                           ?>
                            <td><strong>Aplicado</strong></td>
                           <?php
                         } else {
                         ?>
-                        <td><a href="aplicar_puestoTrabajo.php?id=<?php echo $row['id_puesto']; ?>">Aplicar</a></td>
-                        <?php } ?>-->                        
+                        <td><a href="aplicar_puestoTrabajo.php?id=<?php echo $row['idPuesto']; ?>">Aplicar</a></td>
+                        <?php } ?>                        
                       </tr>
                      <?php
                     }
