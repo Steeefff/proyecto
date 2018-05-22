@@ -83,6 +83,17 @@
           <div class="col-md-4 col-md-offset-4 well">
           <h2 class="text-center">Iniciar sesión</h2>
             <form method="post" action="comprobar_login.php">
+
+
+               <div class="form-group">
+                <label>Iniciar Sesión como:</label>
+                      <select name="tipoInicio" id="tipoInicio" class="form-control" title="Seleccione como iniciar sesión">
+                        <option value="oferente">Oferente</option>
+                        <option value="empresa">Empresa</option>
+                        <option value="admin">Administrador</option>
+                      </select>
+              </div>
+
               <div class="form-group">
                 <label for="correo">Correo</label>
                 <input type="email" class="form-control" id="correo" name="correo" placeholder="correo" required="">
@@ -94,6 +105,7 @@
               <div class="text-center">
                 <button type="submit" class="btn btn-success">Entrar</button>
               </div>
+
               <?php 
               if(isset($_SESSION['registerCompleted'])) {
                 ?>
@@ -104,13 +116,15 @@
                unset($_SESSION['registerCompleted']); }
               ?>   
               <?php 
-              if(isset($_SESSION['oferenteLoginError'])) {
+              if(isset($_SESSION['msjLoginError'])) {
                 ?>
                 <div>
-                  <p class="text-center"><?php echo $_SESSION['oferenteLoginError']?></p>
+                  <p class="text-center"><?php echo $_SESSION['msjLoginError']?></p>
                 </div>
               <?php
-               unset($_SESSION['loginError']); }
+               unset($_SESSION['loginError']);
+               unset($_SESSION['msjLoginError']);
+               }
               ?>   
 
             </form>

@@ -161,10 +161,15 @@ if(empty($_SESSION['id_usuario'])) {
                       <select name="caracteristicas[]" class="form-control selectpicker" data-live-search="true" multiple title="Seleccione las caracteristicas" data-selected-text-format="count > 3" data-size="3">
                         
 
-                        <option value="1">Pan</option>
-                        <option value="2">Cafe</option>
-                        <option value="3">Queso pa mi babe</option>
-                        <option value="4">Papaya</option>
+                        <option value="1">PHP</option>
+                        <option value="2">JavaScrip</option>
+                        <option value="3">MySQl</option>
+                        <option value="4">Oracle</option>
+                        <option value="5">C#</option>
+                        <option value="6">HTML</option>
+                        <option value="7">Bilingüe</option>
+                        <option value="8">Utilizacion de paquetes office</option>
+                        <option value="9">Pedagogía</option>
                        
 
 

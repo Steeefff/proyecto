@@ -27,7 +27,7 @@ if(isset($_POST)){ //si recibe algo que venga en _POST haga lo que sigue
 
 		if($conn->query($sql)===TRUE) {
 				$_SESSION['registerCompleted'] = true;
-				header("Location: empresa_login.php");
+				header("Location: login.php");
 				exit();
 			} else {
 				echo "Error " . $sql . "<br>" . $conn->error;
@@ -42,6 +42,6 @@ if(isset($_POST)){ //si recibe algo que venga en _POST haga lo que sigue
 			$conn->close();
 
 }else{
-	header("Location: empresa_registroo.php");
+	header("Location: empresa_registro.php");
 	exit();
 }

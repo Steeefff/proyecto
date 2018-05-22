@@ -89,7 +89,7 @@ if(isset($_SESSION['id_usuario'])) {
               <a href="registrar_empresa.php" class="btn btn-primary">Registrar Empresa</a>
             </div>
             <div class="pull-right">
-              <a href="empresa_login.php" class="btn btn-primary ">Iniciar sesión</a>
+              <a href="login.php" class="btn btn-primary ">Iniciar sesión</a>
             </div>
           </div>
         </div>

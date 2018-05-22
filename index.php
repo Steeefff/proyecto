@@ -47,16 +47,17 @@ require_once("conexion.php");
             <?php
             if(isset($_SESSION['id_usuario']) && empty($_SESSION['empresaLogeada'])) {
               ?>
-              <li><a href="trabajos_aplicados.php">Mis Trabajos Aplicados</a></li>
-              <li><a href="oferente/panel.php">Panel</a></li>
-              <li><a href="cerrar_sesion.php">Cerrar sesión</a></li>
+              <li><a href="oferente/perfil"></a></li>
+              <li><a href="oferente/trabajos_aplicados.php">Mis Trabajos Aplicados</a></li>
+              <!--<li><a href="oferente/panel.php">Panel</a></li>-->
+              <li><a href="../cerrar_sesion.php">Cerrar sesión</a></li>
             
             <!-----------------LOGUEADO COMO EMPRESA------------------>
             <?php
-            } else if(empty($_SESSION['id_usuario']) && isset($_SESSION['empresaLogeada'])) {
+            } else if(isset($_SESSION['id_usuario']) && isset($_SESSION['empresaLogeada'])) {
             ?>
             <li><a href="empresa/panel.php">Panel</a></li>
-            <li><a href="cerrar_sesion.php"><span class="glyphicon glyphicon-log-in"></span> Cerrar sesión</a></li>
+            <li><a href="../cerrar_sesion.php"><span class="glyphicon glyphicon-log-in"></span> Cerrar sesión</a></li>
 
             <!----------------- SOLO PARTE PUBLICA(no privada)------------------>
             <?php } else { ?>
