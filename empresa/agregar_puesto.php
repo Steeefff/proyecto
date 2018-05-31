@@ -19,13 +19,17 @@ if(isset($_POST)) {
 	$sql = "INSERT INTO puestos(idEmpresa, nombrePuesto, descripcion,fecha,numVacantes,privado,salario,responsabilidades,idCategoria,estadoPuesto) VALUES ('$_SESSION[id_usuario]','$nombrePuesto', '$descripcion', '$fecha', '$numVacantes', '$privado', '$salario','$responsabilidades','$categoria',1)";
 
 
-
-
-
-
 	if($conn->query($sql)===TRUE) {
+
+		$idPuesto=$conn->insert_id;
+		// inserta cada uno de los requisitos del puesto
+		foreach ($_POST['idCaracteristica'] as $idActual) {
+			$sql2 = "INSERT INTO `requisitos_puesto` (`idPuesto`, `idCaracteristicas`) VALUES ('$idPuesto','$idActual')";
+			$conn->query($sql2);
+		}
+
 		$_SESSION['jobPostSuccess'] = true;
-		header("Location: panel.php");
+		header("Location: trabajos_publicados.php");
 		exit();
 	} else {
 		echo "Error " . $sql . "<br>" . $conn->error;
@@ -34,6 +38,6 @@ if(isset($_POST)) {
 	$conn->close();
 
 } else {
-	header("Location: panel.php");
+	header("Location: trabajos_publicados.php");
 	exit();
 }

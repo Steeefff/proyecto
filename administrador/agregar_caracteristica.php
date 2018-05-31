@@ -13,13 +13,13 @@ if(isset($_POST)){
 	
 
 	$tipo = mysqli_real_escape_string($conn, $_POST['tipo']);
-	$nombre = mysqli_real_escape_string($conn, $_POST['nombre']);
+	$nombre = mysqli_real_escape_string($conn, $_POST['nombreCaracteristica']);
 	
  
 
 	if($result->num_rows == 0) {
 	
-		$sql = "INSERT INTO caracteristicas (tipo, nombre, idAdmin) VALUES ('$tipo','$nombre','".$_SESSION['idAdministrador']."')";
+		$sql = "INSERT INTO caracteristicas (nombre, idAdmin, idTipoCaracteristica) VALUES ('$nombre','".$_SESSION['idAdministrador']."','$tipo')";
 		if($conn->query($sql)===TRUE) {
 				$_SESSION['registerCompleted'] = true;
 				header("Location: panel.php");

@@ -11,7 +11,7 @@ if(isset($_POST)) {
 
 	if($conn->query($sql)===TRUE) {
 		$_SESSION['jobPostDeleteSuccess'] = true;
-		header("Location: panel.php");
+		header("Location: trabajos_publicados.php");
 		exit();
 	} else {
 		echo "Error " . $sql . "<br>" . $conn->error;
@@ -20,6 +20,6 @@ if(isset($_POST)) {
 	$conn->close();
 
 } else {
-	header("Location: panel.php");
+	header("Location: trabajos_publicados.php");
 	exit();
 }

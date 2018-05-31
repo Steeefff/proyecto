@@ -4,6 +4,9 @@ if(isset($_SESSION['id_usuario'])) {
     header("Location: oferente/panel.php");
     exit();
   }
+
+require_once("conexion.php");
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,6 +21,9 @@ if(isset($_SESSION['id_usuario'])) {
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
+    <link rel="stylesheet" href="css/bootstrap-select.min.css">
+
+
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -27,55 +33,9 @@ if(isset($_SESSION['id_usuario'])) {
   </head>
   <body>
     
-    <!------------------------------ NAVIGATION BAR (MENU)-------------------------------------->
-    <header>
-      <nav class="navbar navbar-inverse" >
-        <div class="container-fluid">
-          <!-- Brand and toggle get grouped for better mobile display -->
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="index.php">Info Empleo</a>
-          </div>
-
-          <!-- Collect the nav links, forms, and other content for toggling -->
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">     
-            <ul class="nav navbar-nav navbar-right">
-            
-            <!-----------------TODOS (PUBLICO Y PRIVADO)------------------>
-            <li><a href="ver_puestos.php">Ver Puestos</a></li>
-
-            <!-----------------LOGUEADO COMO USUARIO------------------>
-            <?php
-            if(isset($_SESSION['id_usuario']) && empty($_SESSION['empresaLogeada'])) {
-              ?>
-              <li><a href="trabajos_aplicados.php">Mis Trabajos Aplicados</a></li>
-              <li><a href="oferente/panel.php">Panel</a></li>
-              <li><a href="cerrar_sesion.php">Cerrar sesión</a></li>
-            
-            <!-----------------LOGUEADO COMO EMPRESA------------------>
-            <?php
-            } else if(empty($_SESSION['id_usuario']) && isset($_SESSION['empresaLogeada'])) {
-            ?>
-            <li><a href="empresa/panel.php">Panel</a></li>
-            <li><a href="cerrar_sesion.php"><span class="glyphicon glyphicon-log-in"></span> Cerrar sesión</a></li>
-
-            <!----------------- SOLO PARTE PUBLICA(no privada)------------------>
-            <?php } else { ?>
-              <li><a href="empresa.php">Empresa</a></li>
-              <li><a href="registro.php">Registro</a></li>
-              <li><a href="login.php"><span class="glyphicon glyphicon-user"></span> Inicio de sesión</a></li>
-            <?php } ?>              
-            </ul>
-          </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
-      </nav>
-    </header>
-<!------------------------------------------------------- FIN DE MENU -------------------------------------------->
+    <!------INCLUYENDO EL MENU -------->
+    <?php include("menu.php"); ?>
+    <!---------------------------------->
 
 
     <section>
@@ -137,9 +97,53 @@ if(isset($_SESSION['id_usuario'])) {
                   <input type="file" name="archivo" id="archivo">
               </div>
 
+              <div class="form-group">
+                 <label for="tipo">Tipo de Caracteristica</label><br>
+                 <select required id='tipo' name="tipo" class="form-control selectpicker" data-live-search="true" title="Seleccione las caracteristicas" data-selected-text-format="count > 3" data-size="3" onchange="cargarCaracteristicas(this.value)">
+                 <?php 
+                  $sql = "SELECT * FROM tipo_caracteristicas";
+                  $result = $conn->query($sql);
+                  if($result->num_rows > 0) {
+                    while($row = $result->fetch_assoc()) 
+                    {
+                  ?>
+                    <option value='<?php echo $row['idTipoCaracteristica']; ?>'><?php echo $row['nombre']; ?></option>
+                  <?php
+                    }//cierre de while
+                    }//cierre de if          
+                  ?> 
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>Lista de Caracteristicas</label>
+                      <select name="caracteristica" id="caracteristica" class="form-control selectpicker comboCar" data-live-search="true"  data-selected-text-format="count > 3" data-size="3" onchange="agregarToList()" disabled>
+                      </select>
+              </div>
+
+
+              <!-- TABLA DE CARACTERISTICAS SELECCIONADAS-->
+              <div class="form-group">
+                <table id="tabla" class="table width=30 table-striped table-bordered table-condensed table-hover">
+                  <thead style="background-color:#A9D0F5">
+                      <th>ID</th>
+                      <th>Caracteristica</th>
+                  </thead>
+                      <tfoot>
+                        
+                      </tfoot>
+                      <tbody>
+                        
+                      </tbody>
+                    </table>
+              </div>  
+
+
+              <br>
+              <br>
              
              <div class="text-center">
-                <button type="submit" class="btn btn-success">Entrar</button>
+                <button type="submit" class="btn btn-success">Registrar</button>
              </div>
               <?php 
               if(isset($_SESSION['registerError'])) {
@@ -156,9 +160,15 @@ if(isset($_SESSION['id_usuario'])) {
       </div>
     </section>
 
+
+   <script language="JavaScript" SRC="js/caracteristicas.js"></script>
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="js/bootstrap-select.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+
   </body>
 </html>

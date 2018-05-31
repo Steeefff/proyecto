@@ -84,13 +84,13 @@ if(empty($_SESSION['idAdministrador'])) {
                         <thead>
                           <th>No</th>
                           <th>Tipo de caracteristica</th>
-                          <th>Clase de caracteristica</th>
+                          <th>Caracteristica</th>
                           <th>Administrador</th>
                   
                         </thead>
                         <tbody>
                           <?php
-                            $sql = "SELECT * FROM caracteristicas";
+                            $sql = "SELECT tipo_caracteristicas.nombre AS tipo, caracteristicas.nombre,caracteristicas.idCaracteristica, administradores.nombre AS admin FROM caracteristicas JOIN tipo_caracteristicas on (caracteristicas.idTipoCaracteristica = tipo_caracteristicas.idTipoCaracteristica) JOIN administradores ON (caracteristicas.idAdmin = administradores.idAdministrador)";
                             $result = $conn->query($sql);
                             if($result->num_rows > 0) {
                               $i = 0;
@@ -100,7 +100,7 @@ if(empty($_SESSION['idAdministrador'])) {
                                     <td><?php echo ++$i; ?></td>
                                     <td><?php echo $row['tipo']; ?></td>
                                     <td><?php echo $row['nombre']; ?></td>
-                                    <td><?php echo $row['idAdmin']; ?></td>
+                                    <td><?php echo $row['admin']; ?></td>
                               
                                     <td><a href="borrar_caracteristica.php?id=<?php echo $row['idCaracteristica']; ?>">Borrar</a></td>
                                   </tr>
@@ -122,27 +122,30 @@ if(empty($_SESSION['idAdministrador'])) {
           <h2 class="text-center">Registrar caracteristica</h2>
             <form method="post" action="agregar_caracteristica.php">
 
-               
-
               <div class="form-group">
                  <label for="tipo">Tipo de Caracteristica</label><br>
-                 <select required class="form-control" id='tipo' name="tipo"onchange='cargarNombre(this.value);'>
-                  <option value=''>Selecciona una opcion</option>
-                  <option value='Lenguaje de programacion'>Lenguaje de programacion</option>
-                  <option value='Tecnologias web'>Tecnologias web</option>
-                  <option value='Idiomas'>Idiomas</option>
+                 <select required class="form-control" id='tipo' name="tipo">
+                 <?php 
+                  $sql = "SELECT * FROM tipo_caracteristicas";
+                  $result = $conn->query($sql);
+                  if($result->num_rows > 0) {
+                    while($row = $result->fetch_assoc()) 
+                    {
+                  ?>
+                    <option value='<?php echo $row['idTipoCaracteristica']; ?>'><?php echo $row['nombre']; ?></option>
+                  <?php
+                    }//cierre de while
+                    }//cierre de if          
+                  ?> 
                 </select>
               </div>
+
               <div class="form-group">
-                <label for="nombre">Clase de caracteristica</label><br>
-                <select required class="form-control" id='nombre' name="nombre" onchange='seleccinado_nombre();' disabled>
-                <option value="">Selecciona una opcion</option>
-                </select>
-                </div>
+                <label for="nombreCaracteristica">Nombre de la Caracteristica</label>
+                <input type="text" class="form-control" id="nombreCaracteristica" name="nombreCaracteristica" placeholder="Nombre de la Caracteristica" required="">
+              </div>
 
               
-
-             
              <div class="text-center">
                 <button type="submit" class="btn btn-success">Agregar</button>
              </div>
@@ -165,7 +168,6 @@ if(empty($_SESSION['idAdministrador'])) {
           </div>
         </div>
 
-   <script language="JavaScript" SRC="../js/cargarNombre.js"></script>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

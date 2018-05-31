@@ -31,55 +31,9 @@ if(empty($_SESSION['id_usuario'])) {
   </head>
   <body>
     
-   <!------------------------------ NAVIGATION BAR (MENU)-------------------------------------->
-    <header>
-      <nav class="navbar navbar-inverse" >
-        <div class="container-fluid">
-          <!-- Brand and toggle get grouped for better mobile display -->
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="index.php">Info Empleo</a>
-          </div>
-
-          <!-- Collect the nav links, forms, and other content for toggling -->
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">     
-            <ul class="nav navbar-nav navbar-right">
-            
-            <!-----------------TODOS (PUBLICO Y PRIVADO)------------------>
-            <li><a href="ver_puestos.php">Ver Puestos</a></li>
-
-            <!-----------------LOGUEADO COMO USUARIO------------------>
-            <?php
-            if(isset($_SESSION['id_usuario']) && empty($_SESSION['empresaLogeada'])) {
-              ?>
-              <li><a href="trabajos_aplicados.php">Mis Trabajos Aplicados</a></li>
-              <li><a href="oferente/panel.php">Panel</a></li>
-              <li><a href="cerrar_sesion.php">Cerrar sesión</a></li>
-            
-            <!-----------------LOGUEADO COMO EMPRESA------------------>
-            <?php
-            } else if(empty($_SESSION['id_usuario']) && isset($_SESSION['empresaLogeada'])) {
-            ?>
-            <li><a href="empresa/panel.php">Panel</a></li>
-            <li><a href="cerrar_sesion.php"><span class="glyphicon glyphicon-log-in"></span> Cerrar sesión</a></li>
-
-            <!----------------- SOLO PARTE PUBLICA(no privada)------------------>
-            <?php } else { ?>
-              <li><a href="empresa.php">Empresa</a></li>
-              <li><a href="registro.php">Registro</a></li>
-              <li><a href="login.php"><span class="glyphicon glyphicon-user"></span> Inicio de sesión</a></li>
-            <?php } ?>              
-            </ul>
-          </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
-      </nav>
-    </header>
-<!------------------------------------------------------- FIN DE MENU -------------------------------------------->
+   <!------INCLUYENDO EL MENU -------->
+    <?php include("../menu.php"); ?>
+    <!---------------------------------->
 
 
     <section>
@@ -156,25 +110,45 @@ if(empty($_SESSION['id_usuario'])) {
 
               <!--HACER UN QUERY QUE SELECCIONE TODAS LAS CARACTERISTICAS-->
 
+               <div class="form-group">
+                 <label for="tipo">Tipo de Requisito</label><br>
+                 <select required id='tipo' name="tipo" class="form-control selectpicker" data-live-search="true" title="Seleccione las caracteristicas" data-selected-text-format="count > 3" data-size="3" onchange="cargarCaracteristicas(this.value)">
+                 <?php 
+                  $sql = "SELECT * FROM tipo_caracteristicas";
+                  $result = $conn->query($sql);
+                  if($result->num_rows > 0) {
+                    while($row = $result->fetch_assoc()) //i++ va pasando de fila en fila 
+                    {
+                  ?>
+                    <option value='<?php echo $row['idTipoCaracteristica']; ?>'><?php echo $row['nombre']; ?></option>
+                  <?php
+                    }//cierre de while
+                    }//cierre de if          
+                  ?> 
+                </select>
+              </div>
+
               <div class="form-group">
-                <label>Lista de Características</label>
-                      <select name="caracteristicas[]" class="form-control selectpicker" data-live-search="true" multiple title="Seleccione las caracteristicas" data-selected-text-format="count > 3" data-size="3">
-                        
-
-                        <option value="1">PHP</option>
-                        <option value="2">JavaScrip</option>
-                        <option value="3">MySQl</option>
-                        <option value="4">Oracle</option>
-                        <option value="5">C#</option>
-                        <option value="6">HTML</option>
-                        <option value="7">Bilingüe</option>
-                        <option value="8">Utilizacion de paquetes office</option>
-                        <option value="9">Pedagogía</option>
-                       
-
-
+                <label>Lista de Requisitos</label>
+                      <select name="caracteristica" id="caracteristica" class="form-control selectpicker comboCar" data-live-search="true"  data-selected-text-format="count > 3" data-size="3" onchange="agregarToList()" disabled>
                       </select>
               </div>
+
+              <div class="form-group">
+                <table id="tabla" class="table width=30 table-striped table-bordered table-condensed table-hover">
+                  <thead style="background-color:#A9D0F5">
+                      <th>ID</th>
+                      <th>Requisito</th>
+                  </thead>
+                      <tfoot>
+                        
+                      </tfoot>
+                      <tbody>
+                        
+                      </tbody>
+                    </table>
+              </div>  
+
 
 
              <div class="text-center">
@@ -195,6 +169,7 @@ if(empty($_SESSION['id_usuario'])) {
       </div>
     </section>
 
+     <script language="JavaScript" SRC="../js/caracteristica_empresa.js"></script>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->

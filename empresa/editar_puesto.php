@@ -17,7 +17,7 @@ if(isset($_POST)) {
 
 	if($conn->query($sql)===TRUE) {
 		$_SESSION['jobPostUpdateSuccess'] = true;
-		header("Location: panel.php");
+		header("Location: trabajosPublicados.php");
 		exit();
 	} else {
 		echo "Error " . $sql . "<br>" . $conn->error;
@@ -26,6 +26,6 @@ if(isset($_POST)) {
 	$conn->close();
 
 } else {
-	header("Location: panel.php");
+	header("Location: trabajos_publicados.php");
 	exit();
 }

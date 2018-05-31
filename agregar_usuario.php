@@ -41,7 +41,7 @@ if(isset($_POST)){
 	
 	//------------------------------------------------FIN DE SUBIR CURRICULUM------------------------------------------
 
-	if($uploadOk==1){
+	if($uploadOk==1){//si se subio el curriculum
 
 		$id = mysqli_real_escape_string($conn, $_POST['idOferente']);
 		$nombre = mysqli_real_escape_string($conn, $_POST['nombre']);
@@ -57,21 +57,31 @@ if(isset($_POST)){
 		if($result->num_rows == 0) {
 		
 			$sql = "INSERT INTO oferentes(idOferente,nombre, apellido, correo, nacionalidad,telefono,residencia,aprobado,curriculum) VALUES ('$id','$nombre','$apellido','$correo','$nacionalidad','$telefono','$residencia',2,'$nombreCurriculum')";//2 porque es pendiente
-			if($conn->query($sql)===TRUE) {
+
+			if($conn->query($sql)===TRUE) {//si se inserto el oferente vamos a insertar las caracteristicas
+
+
+					//Codigo para insertar cada una de las características
+					foreach ($_POST['idCaracteristica'] as $idActual) {
+						$sql2 = "INSERT INTO `lista_caracteristicas` (`idOferente`, `idCaracteristica`, `nivel`) VALUES ('$id', '$idActual', 'medio')";
+						$conn->query($sql2);
+					}
+					
+
 					$_SESSION['registerCompleted'] = true;
 					header("Location: login.php");
 					exit();
-				} else {
-					echo "Error " . $sql . "<br>" . $conn->error;
-				}
-			}else{
-				$_SESSION['registerError'] = true;
-				header("Location: registro.php");
-				exit();
-
+			} else {
+				echo "Error " . $sql . "<br>" . $conn->error;
 			}
+		}else{
+			$_SESSION['registerError'] = true;
+			header("Location: registro.php");
+			exit();
 
-				$conn->close();
+		}
+
+		$conn->close();
 	} //fin del if del UploadOk
 
 	else{

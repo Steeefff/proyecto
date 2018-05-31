@@ -62,7 +62,7 @@ if(isset($_POST)) {
 						$_SESSION['correo'] = $row['correo'];
 						$_SESSION['id_usuario'] = $row['idEmpresa'];
 						$_SESSION['empresaLogeada'] = true;
-						header("Location: empresa/panel.php");
+						header("Location: empresa/trabajos_publicados.php");
 						exit();
 					}
 					//SI ES UN OFERENTE
