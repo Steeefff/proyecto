@@ -37,10 +37,10 @@ if(isset($_SESSION['id_usuario'])) {
       <div class="container">
         <div class="row">
           <div class="col-md-4 col-md-offset-4 well">
-            <h2 class="text-center" style="color:#0066cc">Empresa</h2>
-            <p class="text-center" style="text-align: justify;">Aquí encuentras el mejor talento humano. Miles de empresas como la tuya ya han tenido éxito contratando los mejores profesionales a través de <strong>Info Empleo</strong>.</p><br>
+            <h2 class="text-center" style="color:#0066cc">Oferente</h2>
+            <p class="text-center" style="text-align: justify;"><strong>Info Empleo</strong> basa toda su estrategia y sus relaciones interpersonales en unos valores muy identificados: Orientación a las personas, Respeto, Honestidad y transparencia, y Proactividad..</p><br>
             <div class="pull-left">
-              <a href="registrar_empresa.php" class="btn btn-primary">Registrar</a>
+              <a href="registro.php" class="btn btn-primary">Registrar</a>
             </div>
             <div class="pull-right">
               <a href="login.php" class="btn btn-primary ">Iniciar sesión</a>
@@ -56,41 +56,39 @@ if(isset($_SESSION['id_usuario'])) {
           <div class="col-md-12">
             <div class="jumbotron text-center">
              <div class="col-md-12 text-center latest-job margin-bottom-20">
-            <h3>Encuentra fácilmente los mejores candidatos para tus vacantes</h3>
-            <h5>En <strong>Info Empleo</strong> sabemos que el fundamento de cada empresa es el talento humano. Por eso innovamos para hacer los procesos de selección más rápidos y efectivos</h5>            
         
         </div>
         <div class="row">
           <div class="col-sm-3 col-md-3">
             <div class="thumbnail candidate-img">
-              <img src="images/empresa1.PNG" alt="Browse Jobs">
+              <img src="images/card4.jpg" alt="Browse Jobs">
               <div class="caption">
-                <h4 class="text-center">Ahorro de tiempo y dinero</h4>
-                <h5>La mejor tecnología para buscar y filtrar currículums en nuestra amplia base de datos</h5>
+                <h4 class="text-center">Crea</h4>
+                <h5>Creamos la mejor experiencia para nuestra comunidad, en equipo.</h5>
               </div>
             </div>
           </div>
           <div class="col-sm-3 col-md-3">
             <div class="thumbnail candidate-img">
-              <img src="images/empresa2.PNG" alt="Apply & Get Interviewed">
+              <img src="images/card5.jpg" alt="Apply & Get Interviewed">
               <div class="caption">
-                <h4 class="text-center">Buscador</h4>
-                <h5>Herramientas optimizadas para reducir el tiempo y costo de la selección</h5>
+                <h4 class="text-center">Aprende</h4>
+                <h5>Buscamos inspiración y conocimiento en nosotros mismos y en los demás.</h5>
               </div>
             </div>
           </div>
           <div class="col-sm-3 col-md-3">
             <div class="thumbnail candidate-img">
-              <img src="images/empresa3.PNG" alt="Start A Career">
+              <img src="images/card6.jpg" alt="Start A Career">
               <div class="caption">
-                <h4 class="text-center">Candidatos calificados</h4>
-                <h5>Encuentra los candidatos que mejor se adaptan al perfil buscado</h5>
+                <h4 class="text-center">Juega</h4>
+                <h5>La vida es lo que pasa mientras estás ocupado trabajando. Nos aseguramos de disfrutarla.</h5>
               </div>
             </div>
           </div>
                <div class="col-sm-3 col-md-3">
             <div class="thumbnail candidate-img">
-              <img src="images/empresa4.PNG" alt="Start A Career">
+              <img src="images/card4.jpg" alt="Start A Career">
               <div class="caption">
                 <h4 class="text-center">Proceso fácil y rápido</h4>
                 <h5>Puedes gestionar tus procesos de selección más rápido y fácil que nunca</h5>

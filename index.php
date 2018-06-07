@@ -15,9 +15,12 @@ require_once("conexion.php");
     <!-- Bootstrap -->
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-   
+   <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/carrusel.css" type="text/css">
     <link rel="stylesheet" href="css/custom.css" type="text/css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    
+
   </head>
   <body>
     
@@ -42,14 +45,18 @@ require_once("conexion.php");
           </div>
         </section>
     </div>
-        
+    
+    
+     
     <!-- https://bootsnipp.com/tags/search -->
 
     <!-- Ultimos trabajos -->
-    <section>
-      <div class="container">
+    <div style=" text-align:center; "  id="rapper">
+    <section id="bloque1">   
+    <section >
+      <div style="position: absolute;left: 50%; top: 50%; transform: translate(-50%, -50%); -webkit-transform: translate(-50%, -50%);"class="container">
         <div class="row">
-          <h2 class="text-center">Ultimos trabajos registrados</h2>
+          <h2 class="text-center" style="color: #669999">Últimos trabajos registrados</h2>
 
 
           <!--Include the above in your HEAD tag -->
@@ -83,9 +90,9 @@ require_once("conexion.php");
                           echo "<div class='item'>";
                     ?>
                 
-                          <img src="images/1.jpg" alt="Second slide">
+                        
                           <!-- Static Header -->
-                                  <div class="header-text text-center hidden-xs">
+                                  <div class=" style:margin-left: auto; margin-right: auto; header-text text-center hidden-xs">
                                      <div class="main_title ">
                                     <h2><?php echo $row['nombrePuesto'];?></h2>
                                     <p><?php echo $row['descripcion'];?></p>
@@ -119,12 +126,13 @@ require_once("conexion.php");
 <br>
 </div>
 
-   <section id="about" class="content-header">
+        
+        <section id="about" class="content-header">
     <a name="ancla"></a>
       <div class="container">
         <div class="row">
           <div class="col-md-12 text-center" >
-            <h1>Acerca de nosotros</h1>                      
+            <a name="ancla" ><h1>Acerca de nosotros</h1>                      
           </div>
         </div>
         <div class="row">
@@ -140,9 +148,46 @@ require_once("conexion.php");
           </div>
         </div>
       </div>
+      <div class="et_pb_column et_pb_column_4_4 et_pb_column_10    et_pb_css_mix_blend_mode_passthrough et-last-child">
+        
+        
+        <div class="et_pb_module et_pb_image et_pb_image_1 et_always_center_on_mobile">
+        
+        
+        <span class="et_pb_image_wrap"><img src="https://www.between.tech/wp-content/uploads/2017/08/cenefa-traingulo-rojo-ok.png" alt=""></span>
+      </div>
+      </div>
     </section>
-
+<!-- About Section -->
+  
+  <div class="w3-row-padding w3-padding-16 w3-center">
+    <div class="w3-quarter">
+      <span class="glyphicon glyphicon-cog"></span>
+      <h3>Soluciones Tecnológicas</h3>
+      <p>Desde las oficinas técnicas de Info Empleo ofrecemos servicios en función de las necesidades de cada cliente y con la opción de desarrollar proyectos llave en mano. Disponemos de una importante capacidad de back office que se adapta a las necesidades de nuestros clientes. </p>
+      <p><button class="w3-button w3-light-grey w3-block">Más info+</button></p>
+    </div>
+    <div class="w3-quarter">
+      <span class="glyphicon glyphicon-question-sign"></span>
+      <h3>Outsourcing y Consultoría</h3>
+      <p>Con el servicio de Outsourcing de Info Empleo nos integramos en la estructura de nuestros clientes dando apoyo en el día a día de las actividades de la empresa. Nuestro equipo de consultores se divide por áreas de especialización, para poder lograr los objetivos.</p>
+      <p><button class="w3-button w3-light-grey w3-block">Más info+</button></p>
+    </div>
+   <div class="w3-quarter">
+      <span class="glyphicon glyphicon-pencil"></span>
+      <h3>Selección Especializadas</h3>
+      <p>Queremos ser el partner de RRHH de nuestros clientes. Gracias a  nuestra experiencia como empresa puntera en el sector tecnológico, conseguimos encontrar al mejor candidato, a nivel técnico como personal y de encaje con la cultura empresarial.</p>
+      <p><button class="w3-button w3-light-grey w3-block">Más info+</button></p>
+    </div>
+  <div class="w3-quarter">
+      <span class="glyphicon glyphicon-file"></span>
+      <h3>Perfiles disponibles</h3>
+      <p>Tenemos perfiles con disponibilidad inmediata para unirse a tu equipo. Recibe nuestra Newsletter mensual con los mejores perfiles de informática e ingeniería. Si alguno resulta de tu interés, sólo tienes que solicitarnos más información.</p>
+      <p><button class="w3-button w3-light-grey w3-block">Más info+</button></p>
+    </div>
   </div>
+
+
   <!-- /.content-wrapper -->
 
   <footer class="main-footer" style="margin-left: 0px;">

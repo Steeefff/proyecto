@@ -15,6 +15,7 @@ require_once("../conexion.php");
 <html lang="es">
   <head>
     <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
@@ -44,7 +45,7 @@ require_once("../conexion.php");
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="../index.php">BuscoEmpleo.com</a>
+            <a class="navbar-brand" href="../index.php">Info Empleo</a>
           </div>
 
           <!-- Collect the nav links, forms, and other content for toggling -->

@@ -1,0 +1,60 @@
+﻿
+
+#rapper {
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.8);
+    margin: 0 auto;
+    max-width: 1440px;
+    width: 100% !important;
+    justify-content: center;
+  align-items: center;
+}
+section {
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 450px;
+    margin: 0 auto;
+    max-width: 1440px;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+ 
+}
+#bloque1 {
+    background-image: url(../images/home1.jpg);
+}
+#bloque2 {
+    background-image: radial-gradient(circle at bottom right,rgba(147,76,255,0.7) 10%,rgba(255,82,91,0.85) 90%)!important;
+}
+
+
+#bloque3 {
+    background-image: url(../images/home2.jpg);
+}
+
+#logo {
+    display: block;
+    margin: 6em auto 0;
+    opacity: 0.8;
+    width: 200px;
+}
+#bloque2 p {
+    background-color: rgba(194, 53, 49, 0.8)!important; 
+    color: #333!important;
+    font-size: 1.2em !important;
+    font-weight: normal !important;
+    margin: 8em auto !important;
+    max-width: 800px !important;
+    padding: 1.5em !important;
+    float: left !important;
+}
+#bloque1 h4 {
+    background-color: rgba(194, 53, 49, 0.8)!important; 
+    color: #333!important;
+    font-size: 1.2em !important;
+    font-weight: normal !important;
+    margin: 8em auto !important;
+    max-width: 800px !important;
+    padding: 1.5em !important;
+    float: left !important;
+}
