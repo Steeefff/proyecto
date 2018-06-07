@@ -1,7 +1,9 @@
 <?php
 session_start();
 header("Content-Type: text/html;charset=utf-8");
-require_once("../conexion.php");
+require_once("conexion.php");
+
+if(isset($_GET['id'])){
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -12,10 +14,10 @@ require_once("../conexion.php");
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta http-equiv="Content-Type" content="text/html; charset= ISO-8859-1" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-    <link rel="stylesheet" href="../css/buscador.css" type="text/css">
+    <link rel="stylesheet" href="css/buscador.css" type="text/css">
 
 
-    <title>Panel</title>
+    <title>Puestos Públicados</title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -30,7 +32,7 @@ require_once("../conexion.php");
   <body>
     
     <!------INCLUYENDO EL MENU -------->
-    <?php include("../menu.php"); ?>
+    <?php include("menu.php"); ?>
     <!---------------------------------->
 
 
@@ -46,26 +48,14 @@ require_once("../conexion.php");
       </div>
       <?php unset($_SESSION['jobApplySuccess']); } ?>
       
-      <!-- otras funciones del panel -->
-      <div class="row">
-        
-        <div class="col-md-4 col-md-offset-1">
-            <form action="" class="search-form">
-                <div class="form-group has-feedback">
-                <label for="search" class="sr-only">Buscar</label>
-                <input type="text" class="form-control" name="search" id="buscar" placeholder="Buscar puesto">
-                  <span class="glyphicon glyphicon-search form-control-feedback"></span>
-              </div>
-            </form>
-        </div>
-       </div>
+     
       
 
       <!-- buscar y aplicar a los puestos de trabajo -->
       <div class="row">
         <div class="col-md-12">
           <div class="table-responsive">
-            <h2 class="text-center">Trabajos Activos</h2>
+            <h2 class="text-center">Trabajos Publicados</h2>
             <table class="table table-striped">
               <thead>
                 <th>Nombre del Trabajo</th>
@@ -73,40 +63,82 @@ require_once("../conexion.php");
                 <th>Salario</th>
                 <th>Vacantes</th>
                 <th>Responsabilidades</th>
+                <th>Requisitos</th>
                 <th>Fecha </th>
+                <th></th>
               </thead>
               <tbody>
                 <?php 
-                  $sql = "SELECT * FROM puestos";
+
+                  if(isset($_GET['id'])){
+                    $idEmpresa = mysqli_real_escape_string($conn, $_GET['id']);
+                  }
+
+
+                  if(isset($_SESSION['id_usuario'])){
+
+                    $sql = "SELECT DISTINCT puestos.idPuesto,puestos.nombrePuesto,puestos.descripcion,puestos.salario,puestos.numVacantes,puestos.responsabilidades,puestos.fecha FROM caracteristicas JOIN requisitos_puesto ON caracteristicas.idCaracteristica = requisitos_puesto.idCaracteristicas JOIN puestos ON puestos.idPuesto = requisitos_puesto.idPuesto WHERE caracteristicas.nombre LIKE '%%' AND puestos.idEmpresa =".$idEmpresa."";
+                  }
+                  else{//si no esta registrado
+
+                    $sql = "SELECT DISTINCT puestos.idPuesto,puestos.nombrePuesto,puestos.descripcion,puestos.salario,puestos.numVacantes,puestos.responsabilidades,puestos.fecha FROM caracteristicas JOIN requisitos_puesto ON caracteristicas.idCaracteristica = requisitos_puesto.idCaracteristicas JOIN puestos ON puestos.idPuesto = requisitos_puesto.idPuesto WHERE caracteristicas.nombre LIKE '%%' AND privado=0 AND puestos.idEmpresa =".$idEmpresa."";//seleccionar publicos
+                  }
+
+
                   //$sql = "SELECT puestos.idPuesto, puestos.nombrePuesto,puestos.salario,puestos.fecha, empresas.nombre FROM puestos JOIN empresas ON puestos.idEmpresa=empresas.idEmpresa";
                   $result = $conn->query($sql);
                   if($result->num_rows > 0) {
+                    //while recorre todos los puestos y los poner en el panel, asi se van cargando uno por uno 
                     while($row = $result->fetch_assoc()) 
                     {
-                      $sql1 = "SELECT * FROM postulante WHERE idPostulante='$_SESSION[id_usuario]' AND idPuesto='$row[idPuesto]'";
-                      $result1 = $conn->query($sql1);
-                      
-                     ?>
+
+                    $sql3="SELECT caracteristicas.nombre FROM caracteristicas JOIN requisitos_puesto ON caracteristicas.idCaracteristica = requisitos_puesto.idCaracteristicas JOIN puestos ON puestos.idPuesto = requisitos_puesto.idPuesto WHERE puestos.idPuesto = '$row[idPuesto]'";
+
+                    $result3 = $conn->query($sql3);
+
+                ?>
                      <tr>
                         <td><?php echo $row['nombrePuesto']; ?></td>
                         <td><?php echo $row['descripcion']; ?></td>
                         <td><?php echo $row['salario']; ?></td>
                         <td><?php echo $row['numVacantes']; ?></td>
                         <td><?php echo $row['responsabilidades']; ?></td>
-                        <td><?php echo date("d-M-Y", strtotime($row['fecha'])); ?></td>
-                        <?php
-                        if($result1->num_rows > 0) { 
+
+                        <!-- WHILE PARA MOSTRAR TODOSO LOS REQUISITOS(CARACTERISTICAS) DE CADA PUESTO -->
+                        <td>
+                          <?php 
+                          if($result->num_rows > 0){
+                           // el result3 trae las caracteristicas fila por fila osea cada caracteristica 
+                            while($row3 = $result3->fetch_assoc()){
+                              echo $row3['nombre']."-"; //el guion es para separar las caracteristicas unoas de otras
+                            } 
+                          }
                           ?>
-                           <td><strong>Aplicado</strong></td>
-                          <?php
-                        } else {
-                        ?>
-                        <td><a href="aplicar_puestoTrabajo.php?id=<?php echo $row['idPuesto']; ?>">Aplicar</a></td>
-                        <?php } ?>                        
+                        </td>
+                        <!-- FIN DE WHILE-->
+                        
+
+
+                        <td><?php echo date("d-M-Y", strtotime($row['fecha'])); ?></td>
+                        
+                      <?php
+
+                      if(isset($_SESSION['id_usuario'])){
+                            $sql1 = "SELECT * FROM postulante WHERE idCandidato='$_SESSION[id_usuario]' AND idPuesto='$row[idPuesto]'";
+                            $result1 = $conn->query($sql1);
+                            if($result1->num_rows > 0) { 
+                               echo "<td><strong>Aplicado</strong></td>";
+                            } else {
+                          ?>
+                            <td><a href="oferente/aplicar.php?id=<?php echo $row['idPuesto']; ?>">Aplicar</a></td>
+                          <?php 
+                            }//cierre de else 
+                      }//cierre de if $_SESSION['id_usuario']
+                      ?>  
                       </tr>
                      <?php
-                    }
-                  }
+                    }//cierre de while
+                  }//
                   $conn->close();
                 ?>
               </tbody>
@@ -123,3 +155,7 @@ require_once("../conexion.php");
 
   </body>
 </html>
+<?php
+}
+
+?>

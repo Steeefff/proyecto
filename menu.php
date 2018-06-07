@@ -23,6 +23,8 @@
             
             <!-----------------TODOS (PUBLICO Y PRIVADO)------------------>
             <li><a href='<?php echo RUTA;?>/ver_puestos.php'>Ver Puestos</a></li>
+            <li><a href='<?php echo RUTA;?>/ver_empresas.php'>Ver Empresas</a></li>
+
 
             <!-----------------LOGUEADO COMO USUARIO------------------>
             <?php
@@ -36,7 +38,7 @@
             <?php
             } else if(isset($_SESSION['id_usuario']) && isset($_SESSION['empresaLogeada'])) {
             ?>
-            <li><a href='<?php echo RUTA;?>/empresa/buscar_oferentes.php'>Buscar Oferentes</a></li>
+            <li><a href='<?php echo RUTA;?>/empresa/buscar_oferente.php'>Buscar Oferentes</a></li>
             <li><a href='<?php echo RUTA;?>/empresa/crear_puestoTrabajo.php'>Agregar Puestos</a></li>
             <li><a href='<?php echo RUTA;?>/empresa/trabajos_publicados.php'>Puestos Publicados</a></li>
             <li><a href='<?php echo RUTA;?>/cerrar_sesion.php'><span class="glyphicon glyphicon-log-in"></span> Cerrar sesión</a></li>

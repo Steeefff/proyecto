@@ -13,17 +13,17 @@ if(isset($_POST)){ //si recibe algo que venga en _POST haga lo que sigue
 	$correo = mysqli_real_escape_string($conn, $_POST['correo']);
 	$numeroContacto = mysqli_real_escape_string($conn, $_POST['numeroContacto']);
 	$descripcion = mysqli_real_escape_string($conn, $_POST['descripcion']);
-	
-
-	//encryptar la contrasena
-	$password = base64_encode(strrev(md5($password)));
+	$password = mysqli_real_escape_string($conn, $_POST['contraseña']);
+		
+	//Encrypt Password
+	//$password = base64_encode(strrev(md5($password)));
 
 	$sql = "SELECT correo FROM empresas WHERE correo='$correo'";
 	$result = $conn->query($sql);
 
 	if($result->num_rows == 0) {
 	
-		$sql = "INSERT INTO empresas(nombre,correo,telefono,descripcion,aprobado,longitud,latitud) VALUES ('$nombreEmpresa','$correo','$numeroContacto','$descripcion','2',$x,$y)";
+		$sql = "INSERT INTO empresas(nombre,correo,telefono,descripcion,aprobado,longitud,latitud,clave) VALUES ('$nombreEmpresa','$correo','$numeroContacto','$descripcion','2',$x,$y,'$password')";
 
 		if($conn->query($sql)===TRUE) {
 				$_SESSION['registerCompleted'] = true;

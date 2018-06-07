@@ -3,25 +3,18 @@ session_start();
 require_once("../conexion.php");
 
 //If user clicked register button
-if(isset($_POST)) {
+if(isset($_GET)) {
 
-	$sql = "SELECT * FROM puesto_trabajo WHERE id_puesto='$_GET[id]'";
-	  $result = $conn->query($sql);
-	  if($result->num_rows > 0) 
-	  {
-	    	$row = $result->fetch_assoc();
-	    	$id_empresa = $row['id_empresa'];
-	   }
-
-	$sql1 = "SELECT * FROM aplicar_trabajo WHERE id_usuario='$_SESSION[id_usuario]' AND id_puesto='$row[id_puesto]'";
+	//Verificar que no este aplicado
+	$sql1 = "SELECT * FROM postulante WHERE idCandidato='$_SESSION[id_usuario]' AND idPuesto='$_GET[id]'";
     $result1 = $conn->query($sql1);
-    if($result1->num_rows == 0) {  
+    if($result1->num_rows == 0) {  //si es 0 quiere decir que no ha aplicado entonces vamos a insertar
     	
-    	$sql = "INSERT INTO aplicar_trabajo(id_puesto, id_empresa, id_usuario) VALUES ('$_GET[id]', '$id_empresa', '$_SESSION[id_usuario]')";
+    	$sql = "INSERT INTO `postulante` (`idPuesto`, `idCandidato`) VALUES ('$_GET[id]', '$_SESSION[id_usuario]')";
 
 		if($conn->query($sql)===TRUE) {
 			$_SESSION['jobApplySuccess'] = true;
-			header("Location: ver_puestos.php");
+			header("Location: trabajos_aplicados.php");
 			exit();
 		} else {
 			echo "Error " . $sql . "<br>" . $conn->error;
@@ -30,12 +23,12 @@ if(isset($_POST)) {
 		$conn->close();
 
     }  else {
-		header("Location: ver_puestos.php");
+		header("Location: trabajos_aplicados.php");
 		exit();
 	}
 	
 
 } else {
-	header("Location: ver_puestos.php");
+	header("Location: trabajos_aplicados.php");
 	exit();
 }

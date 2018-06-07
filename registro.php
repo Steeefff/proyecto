@@ -93,6 +93,11 @@ require_once("conexion.php");
               </div>
 
               <div class="form-group">
+                 <label for="contraseña">Contraseña</label>
+                <input type="password" class="form-control" id="contraseña" name="contraseña" placeholder="Contraseña" required="">
+              </div>
+
+              <div class="form-group">
                  <label for="clave">Adjunte su Curriculum Vitae en forma de PDF</label>
                   <input type="file" name="archivo" id="archivo">
               </div>

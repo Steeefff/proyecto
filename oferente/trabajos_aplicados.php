@@ -32,6 +32,16 @@ require_once("../conexion.php");
     <?php include("../menu.php"); ?>
     <!---------------------------------->
 
+    <?php if(isset($_SESSION['jobApplySuccess'])) { ?>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="alert alert-success">
+            Usted a aplicado correctamente!
+          </div>
+        </div>
+      </div>
+      <?php unset($_SESSION['jobApplySuccess']); } ?>
+
 
     <div class="container">
 

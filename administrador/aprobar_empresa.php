@@ -13,7 +13,7 @@ require_once("../conexion.php");
 if(isset($_GET)) {
 
 	//---------------------------------------CODIGO PARA GENERAR CONTRASEÑA-------------------------------------
-
+/*
 	$longitud = 8;
 	$codReserva="";//codigo de reserva que se le dará al usuario y se guardara en la BD
 	 
@@ -33,13 +33,14 @@ if(isset($_GET)) {
 		$codReserva .= $listado[rand(0,strlen($listado))];//Se van concatenando uno a uno las letras/numeros en la variable codReserva
 		str_shuffle($listado);
 	}
+*/
 
 //---------------------------------------------------------------------------
 
 	//encryptar la contrasena
 	//$codReserva = base64_encode(strrev(md5($codReserva)));
 
-	$sql = "UPDATE  empresas SET aprobado='1',clave='$codReserva' WHERE idEmpresa='$_GET[id]'";
+	$sql = "UPDATE  empresas SET aprobado='1' WHERE idEmpresa='$_GET[id]'";
 	if($conn->query($sql)) {
 		header("Location: panel.php");
 		exit();

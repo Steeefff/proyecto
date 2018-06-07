@@ -136,13 +136,13 @@ require_once("conexion.php");
                       <?php
 
                       if(isset($_SESSION['id_usuario'])){
-                        $sql1 = "SELECT * FROM postulante WHERE idPostulante='$_SESSION[id_usuario]' AND idPuesto='$row[idPuesto]'";
+                        $sql1 = "SELECT * FROM postulante WHERE idCandidato='$_SESSION[id_usuario]' AND idPuesto='$row[idPuesto]'";
                         $result1 = $conn->query($sql1);
                         if($result1->num_rows > 0) { 
                            echo "<td><strong>Aplicado</strong></td>";
                         } else {
                       ?>
-                        <td><a href="aplicar_puestoTrabajo.php?id=<?php echo $row['idPuesto']; ?>">Aplicar</a></td>
+                        <td><a href="oferente/aplicar.php?id=<?php echo $row['idPuesto']; ?>">Aplicar</a></td>
                       <?php 
                         }//cierre de else 
                       }//cierre de if $_SESSION['id_usuario']

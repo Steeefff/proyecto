@@ -50,13 +50,18 @@ if(isset($_POST)){
 		$nacionalidad = mysqli_real_escape_string($conn, $_POST['nacionalidad']);
 		$telefono = mysqli_real_escape_string($conn, $_POST['telefono']);
 		$residencia = mysqli_real_escape_string($conn, $_POST['residencia']);
+		$password = mysqli_real_escape_string($conn, $_POST['contraseña']);
+		
+		//Encrypt Password
+		//$password = base64_encode(strrev(md5($password)));
+
 
 		$sql = "SELECT correo FROM oferentes WHERE correo='$correo' "; //verificamos que NO exista el correo para que no se repita 
 		$result = $conn->query($sql);
 
 		if($result->num_rows == 0) {
 		
-			$sql = "INSERT INTO oferentes(idOferente,nombre, apellido, correo, nacionalidad,telefono,residencia,aprobado,curriculum) VALUES ('$id','$nombre','$apellido','$correo','$nacionalidad','$telefono','$residencia',2,'$nombreCurriculum')";//2 porque es pendiente
+			$sql = "INSERT INTO oferentes(idOferente,nombre, apellido, correo, nacionalidad,telefono,residencia,aprobado,curriculum,clave) VALUES ('$id','$nombre','$apellido','$correo','$nacionalidad','$telefono','$residencia',2,'$nombreCurriculum','$password')";//2 porque es pendiente
 
 			if($conn->query($sql)===TRUE) {//si se inserto el oferente vamos a insertar las caracteristicas
 
